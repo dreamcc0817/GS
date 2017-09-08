@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dreamcc.gs.dao.MenuBtnMapper">
+  <resultMap id="BaseResultMap" type="com.dreamcc.gs.bean.MenuBtn">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="menuid" jdbcType="INTEGER" property="menuid" />
+    <result column="btnName" jdbcType="VARCHAR" property="btnname" />
+    <result column="btnType" jdbcType="VARCHAR" property="btntype" />
+    <result column="actionUrls" jdbcType="VARCHAR" property="actionurls" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, menuid, btnName, btnType, actionUrls
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_menu_btn
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_menu_btn
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dreamcc.gs.bean.MenuBtn">
+    insert into sys_menu_btn (id, menuid, btnName, 
+      btnType, actionUrls)
+    values (#{id,jdbcType=INTEGER}, #{menuid,jdbcType=INTEGER}, #{btnname,jdbcType=VARCHAR}, 
+      #{btntype,jdbcType=VARCHAR}, #{actionurls,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dreamcc.gs.bean.MenuBtn">
+    insert into sys_menu_btn
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="menuid != null">
+        menuid,
+      </if>
+      <if test="btnname != null">
+        btnName,
+      </if>
+      <if test="btntype != null">
+        btnType,
+      </if>
+      <if test="actionurls != null">
+        actionUrls,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="menuid != null">
+        #{menuid,jdbcType=INTEGER},
+      </if>
+      <if test="btnname != null">
+        #{btnname,jdbcType=VARCHAR},
+      </if>
+      <if test="btntype != null">
+        #{btntype,jdbcType=VARCHAR},
+      </if>
+      <if test="actionurls != null">
+        #{actionurls,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dreamcc.gs.bean.MenuBtn">
+    update sys_menu_btn
+    <set>
+      <if test="menuid != null">
+        menuid = #{menuid,jdbcType=INTEGER},
+      </if>
+      <if test="btnname != null">
+        btnName = #{btnname,jdbcType=VARCHAR},
+      </if>
+      <if test="btntype != null">
+        btnType = #{btntype,jdbcType=VARCHAR},
+      </if>
+      <if test="actionurls != null">
+        actionUrls = #{actionurls,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dreamcc.gs.bean.MenuBtn">
+    update sys_menu_btn
+    set menuid = #{menuid,jdbcType=INTEGER},
+      btnName = #{btnname,jdbcType=VARCHAR},
+      btnType = #{btntype,jdbcType=VARCHAR},
+      actionUrls = #{actionurls,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dreamcc.gs.dao.MenuMapper">
+	<resultMap id="BaseResultMap" type="com.dreamcc.gs.bean.Menu">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="url" jdbcType="VARCHAR" property="url" />
+		<result column="parentId" jdbcType="INTEGER" property="parentid" />
+		<result column="deleted" jdbcType="INTEGER" property="deleted" />
+		<result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+		<result column="updateTime" jdbcType="TIMESTAMP" property="updatetime" />
+		<result column="rank" jdbcType="INTEGER" property="rank" />
+		<result column="actions" jdbcType="VARCHAR" property="actions" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, name, url, parentId, deleted, createTime, updateTime,
+		rank, actions
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from sys_menu
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		sys_menu
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.dreamcc.gs.bean.Menu">
+		insert into sys_menu (id,
+		name, url,
+		parentId, deleted, createTime,
+		updateTime, rank, actions
+		)
+		values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+		#{url,jdbcType=VARCHAR},
+		#{parentid,jdbcType=INTEGER},
+		#{deleted,jdbcType=INTEGER}, now(),
+		now(), #{rank,jdbcType=INTEGER},
+		#{actions,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.dreamcc.gs.bean.Menu">
+		insert into sys_menu
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="url != null">
+				url,
+			</if>
+			<if test="parentid != null">
+				parentId,
+			</if>
+			<if test="deleted != null">
+				deleted,
+			</if>
+			<if test="createtime != null">
+				createTime,
+			</if>
+			<if test="updatetime != null">
+				updateTime,
+			</if>
+			<if test="rank != null">
+				rank,
+			</if>
+			<if test="actions != null">
+				actions,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="url != null">
+				#{url,jdbcType=VARCHAR},
+			</if>
+			<if test="parentid != null">
+				#{parentid,jdbcType=INTEGER},
+			</if>
+			<if test="deleted != null">
+				#{deleted,jdbcType=INTEGER},
+			</if>
+			<if test="createtime != null">
+				now(),
+			</if>
+			<if test="updatetime != null">
+				now(),
+			</if>
+			<if test="rank != null">
+				#{rank,jdbcType=INTEGER},
+			</if>
+			<if test="actions != null">
+				#{actions,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.dreamcc.gs.bean.Menu">
+		update sys_menu
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="url != null">
+				url = #{url,jdbcType=VARCHAR},
+			</if>
+			<if test="parentid != null">
+				parentId = #{parentid,jdbcType=INTEGER},
+			</if>
+			<if test="deleted != null">
+				deleted = #{deleted,jdbcType=INTEGER},
+			</if>
+			<if test="createtime != null">
+				createTime = #{createtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatetime != null">
+				updateTime = now(),
+			</if>
+			<if test="rank != null">
+				rank = #{rank,jdbcType=INTEGER},
+			</if>
+			<if test="actions != null">
+				actions = #{actions,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.dreamcc.gs.bean.Menu">
+		update sys_menu
+		set name = #{name,jdbcType=VARCHAR},
+		url = #{url,jdbcType=VARCHAR},
+		parentId = #{parentid,jdbcType=INTEGER},
+		deleted =
+		#{deleted,jdbcType=INTEGER},
+		createTime =
+		#{createtime,jdbcType=TIMESTAMP},
+		updateTime = now(),
+		rank =
+		#{rank,jdbcType=INTEGER},
+		actions = #{actions,jdbcType=VARCHAR}
+		where id
+		= #{id,jdbcType=INTEGER}
+	</update>
+	<!-- ============================================================== -->
+	<!-- 查询系统所有有效菜单列表 -->
+	<select id="queryByAll" resultMap="BaseResultMap" parameterType="Object">
+		select id,name,url,parentId,actions from sys_menu deleted = 0 order by
+		rank desc
+	</select>
+	<!-- 获取顶级菜单 -->
+	<select id="getRootMenu" resultMap="BaseResultMap"
+		parameterType="Object">
+		select id,name,url,parentId,actions from sys_menu where deleted= 0 and
+		parentId is null
+		<if test="menuId != null">
+			and id != #{menuId}
+		</if>
+	</select>
+	<!-- 获取子菜单 -->
+	<select id="getChildMenu" resultMap="BaseResultMap"
+		parameterType="Object">
+		select id,name,url,parentId,actions from sys_menu where
+		deleted= 0 and
+		parentId is not null
+	</select>
+	<!-- 根据角色Id获取菜单（不需要父菜单） -->
+	<select id="getMenuByRoleId" resultMap="BaseResultMap"
+		parameterType="Object">
+		SELECT id,NAME,url,parentId,actions FROM sys_menu m WHERE deleted= 0 AND
+		parentId IS NOT NULL
+		AND EXISTS (
+		SELECT * FROM sys_role_rel r WHERE r.objId = m.id AND relType = 0
+		AND r.roleId = #{roleId}
+		)
+	</select>
+
+	<!-- 根据用户id查询父菜单菜单 -->
+	<select id="getRootMenuByUser" resultMap="BaseResultMap"
+		parameterType="Object">
+		SELECT DISTINCT id,NAME,url,parentId,actions FROM sys_menu m
+		WHERE deleted= 0 AND parentId IS NULL
+		AND EXISTS (
+		SELECT * FROM sys_role_rel r
+		WHERE r.objId = m.id AND r.relType = 0
+		AND EXISTS (
+		SELECT 1 FROM sys_role_rel u WHERE u.roleId = r.roleId AND u.relType = 1 AND
+		u.objId = #{userId}
+		)
+		)
+	</select>
+
+
+	<!-- 根据用户id查询子菜单菜单 -->
+	<select id="getChildMenuByUser" resultMap="BaseResultMap"
+		parameterType="Object">
+		SELECT DISTINCT id,NAME,url,parentId,actions FROM sys_menu m
+		WHERE deleted= 0 AND parentId IS NOT NULL
+		AND EXISTS (
+		SELECT * FROM sys_role_rel r
+		WHERE r.objId = m.id AND r.relType = 0
+		AND EXISTS (
+		SELECT 1 FROM sys_role_rel u WHERE u.roleId = r.roleId AND u.relType = 1 AND
+		u.objId = #{userId}
+		)
+		)
+	</select>
+</mapper>
