@@ -1,135 +1,133 @@
 package com.dreamcc.gs.bean;
 
-import java.util.Date;
 
-public class User {
-    private Integer id;
+public class User extends BaseBean {
+	private Integer id;// id主键
+	private String email;// 邮箱也是登录帐号
+	private String pwd;// 登录密码
+	private String nickName;// 昵称
+	private Integer state;// 状态 0=可用,1=禁用
+	private Integer loginCount;// 登录总次数
+	private java.sql.Timestamp loginTime;// 最后登录时间
+	private Integer deleted;// 删除状态 0=未删除,1=已删除
+	private java.sql.Timestamp createTime;// 创建时间
+	private java.sql.Timestamp updateTime;// 修改时间
+	private Integer createBy;// 创建人
+	private Integer updateBy;// 修改人
 
-    private String email;
+	private Integer superAdmin;// 超级管理员
 
-    private String pwd;
+	private String roleStr;// 用户权限, 按","区分
 
-    private String nickname;
+	public String getRoleStr() {
+		return roleStr;
+	}
 
-    private Integer state;
+	public void setRoleStr(String roleStr) {
+		this.roleStr = roleStr;
+	}
 
-    private Integer logincount;
+	public Integer getId() {
+		return this.id;
+	}
 
-    private Date logintime;
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    private Integer deleted;
+	public String getEmail() {
+		return this.email;
+	}
 
-    private Date createtime;
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    private Date updatetime;
+	public String getPwd() {
+		return this.pwd;
+	}
 
-    private Integer createby;
+	public void setPwd(String pwd) {
+		this.pwd = pwd;
+	}
 
-    private Integer updateby;
+	public String getNickName() {
+		return this.nickName;
+	}
 
-    private Integer superadmin;
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
 
-    public Integer getId() {
-        return id;
-    }
+	public Integer getState() {
+		return this.state;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public void setState(Integer state) {
+		this.state = state;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public Integer getLoginCount() {
+		return this.loginCount;
+	}
 
-    public void setEmail(String email) {
-        this.email = email == null ? null : email.trim();
-    }
+	public void setLoginCount(Integer loginCount) {
+		this.loginCount = loginCount;
+	}
 
-    public String getPwd() {
-        return pwd;
-    }
+	public java.sql.Timestamp getLoginTime() {
+		return this.loginTime;
+	}
 
-    public void setPwd(String pwd) {
-        this.pwd = pwd == null ? null : pwd.trim();
-    }
+	public void setLoginTime(java.sql.Timestamp loginTime) {
+		this.loginTime = loginTime;
+	}
 
-    public String getNickname() {
-        return nickname;
-    }
+	public Integer getDeleted() {
+		return this.deleted;
+	}
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname == null ? null : nickname.trim();
-    }
+	public void setDeleted(Integer deleted) {
+		this.deleted = deleted;
+	}
 
-    public Integer getState() {
-        return state;
-    }
+	public java.sql.Timestamp getCreateTime() {
+		return this.createTime;
+	}
 
-    public void setState(Integer state) {
-        this.state = state;
-    }
+	public void setCreateTime(java.sql.Timestamp createTime) {
+		this.createTime = createTime;
+	}
 
-    public Integer getLogincount() {
-        return logincount;
-    }
+	public java.sql.Timestamp getUpdateTime() {
+		return this.updateTime;
+	}
 
-    public void setLogincount(Integer logincount) {
-        this.logincount = logincount;
-    }
+	public void setUpdateTime(java.sql.Timestamp updateTime) {
+		this.updateTime = updateTime;
+	}
 
-    public Date getLogintime() {
-        return logintime;
-    }
+	public Integer getCreateBy() {
+		return this.createBy;
+	}
 
-    public void setLogintime(Date logintime) {
-        this.logintime = logintime;
-    }
+	public void setCreateBy(Integer createBy) {
+		this.createBy = createBy;
+	}
 
-    public Integer getDeleted() {
-        return deleted;
-    }
+	public Integer getUpdateBy() {
+		return this.updateBy;
+	}
 
-    public void setDeleted(Integer deleted) {
-        this.deleted = deleted;
-    }
+	public void setUpdateBy(Integer updateBy) {
+		this.updateBy = updateBy;
+	}
 
-    public Date getCreatetime() {
-        return createtime;
-    }
+	public Integer getSuperAdmin() {
+		return superAdmin;
+	}
 
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
-    }
-
-    public Date getUpdatetime() {
-        return updatetime;
-    }
-
-    public void setUpdatetime(Date updatetime) {
-        this.updatetime = updatetime;
-    }
-
-    public Integer getCreateby() {
-        return createby;
-    }
-
-    public void setCreateby(Integer createby) {
-        this.createby = createby;
-    }
-
-    public Integer getUpdateby() {
-        return updateby;
-    }
-
-    public void setUpdateby(Integer updateby) {
-        this.updateby = updateby;
-    }
-
-    public Integer getSuperadmin() {
-        return superadmin;
-    }
-
-    public void setSuperadmin(Integer superadmin) {
-        this.superadmin = superadmin;
-    }
+	public void setSuperAdmin(Integer superAdmin) {
+		this.superAdmin = superAdmin;
+	}
 }

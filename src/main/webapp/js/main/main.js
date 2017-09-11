@@ -10,7 +10,7 @@ dreamcc.main = function(){
 			return false;
 		},// treeSelect
 		treeInit:function(){
-			var $item = $("#tree-box").find(".menu-item");
+			var $items = $("#tree-box").find(".menu-item");
 			$items.bind('click',this.treeSelect);
 		},// treeInit
 		addTab:function(_title,_url){

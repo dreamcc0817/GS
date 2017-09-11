@@ -1,17 +1,18 @@
 package com.dreamcc.gs.dao;
 
+import java.util.List;
+
 import com.dreamcc.gs.bean.MenuBtn;
 
-public interface MenuBtnMapper {
-    int deleteByPrimaryKey(Integer id);
+public interface MenuBtnMapper<T> extends BaseMapper<T> {
 
-    int insert(MenuBtn record);
+	public List<T> queryByMenuid(Integer menuid);
 
-    int insertSelective(MenuBtn record);
+	public List<T> queryByMenuUrl(String url);
 
-    MenuBtn selectByPrimaryKey(Integer id);
+	public void deleteByMenuid(Integer menuid);
 
-    int updateByPrimaryKeySelective(MenuBtn record);
+	public List<T> getMenuBtnByUser(Integer userid);
 
-    int updateByPrimaryKey(MenuBtn record);
+	public List<T> queryByAll();
 }

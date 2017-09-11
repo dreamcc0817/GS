@@ -2,159 +2,160 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dreamcc.gs.dao.MenuMapper">
 	<resultMap id="BaseResultMap" type="com.dreamcc.gs.bean.Menu">
-		<id column="id" jdbcType="INTEGER" property="id" />
-		<result column="name" jdbcType="VARCHAR" property="name" />
-		<result column="url" jdbcType="VARCHAR" property="url" />
-		<result column="parentId" jdbcType="INTEGER" property="parentid" />
-		<result column="deleted" jdbcType="INTEGER" property="deleted" />
-		<result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
-		<result column="updateTime" jdbcType="TIMESTAMP" property="updatetime" />
-		<result column="rank" jdbcType="INTEGER" property="rank" />
-		<result column="actions" jdbcType="VARCHAR" property="actions" />
+		<result column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="url" property="url" />
+		<result column="parentId" property="parentId" />
+		<result column="deleted" property="deleted" />
+		<result column="createTime" property="createTime" />
+		<result column="updateTime" property="updateTime" />
+		<result column="rank" property="rank" />
+		<result column="actions" property="actions" />
 	</resultMap>
+
+	<!-- 扩展字段 -->
+	<resultMap id="ExtResultMap" extends="BaseResultMap" type="com.dreamcc.gs.bean.Menu">
+		<result column="subCount" property="subCount" />
+	</resultMap>
+
+
+	<!-- sys_menu table all fields -->
 	<sql id="Base_Column_List">
-		id, name, url, parentId, deleted, createTime, updateTime,
-		rank, actions
+		id,name,url,parentId,deleted,createTime,updateTime,rank,actions
 	</sql>
-	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
-		resultMap="BaseResultMap">
+
+
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1 and deleted = 0
+		<trim suffixOverrides=",">
+			<if test="id != null">
+				and id = #{id}
+			</if>
+			<if test="name != null and name != ''">
+				and name like CONCAT('%', #{name}, '%')
+			</if>
+			<if test="url != null and url != ''">
+				and url = #{url}
+			</if>
+
+			<if test="parentId != null">
+				and parentId = #{parentId}
+			</if>
+			<!-- 如果parentId为空,这查询顶级菜单 -->
+			<if test="parentId == null">
+				and parentId is null
+			</if>
+
+			<if test="createTime != null">
+				and createTime = #{createTime}
+			</if>
+			<if test="rank != null">
+				and rank = #{rank}
+			</if>
+			<if test="actions != null and actions != ''">
+				and actions = #{actions}
+			</if>
+		</trim>
+	</sql>
+
+
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Object">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into
+		sys_menu(name,url,parentId,deleted,createTime,rank,actions)
+		values(#{name},#{url},#{parentId},#{deleted},now(),#{rank},#{actions})
+	</insert>
+
+	<!-- 根据id，修改记录 -->
+	<update id="update" parameterType="Object">
+		update sys_menu set
+		id=#{id},name=#{name},url=#{url},parentId=#{parentId},deleted=#{deleted},updateTime
+		= now(),rank=#{rank},actions=#{actions} where id=#{id}
+	</update>
+
+	<!-- 修改记录，只修改只不为空的字段 -->
+	<update id="updateBySelective" parameterType="Object">
+		update sys_menu set
+		<trim suffixOverrides=",">
+			<if test="id != null  ">
+				id=#{id},
+			</if>
+			<if test="name != null  and name != '' ">
+				name=#{name},
+			</if>
+			<if test="url != null  and url != '' ">
+				url=#{url},
+			</if>
+			<if test="parentId != null  ">
+				parentId=#{parentId},
+			</if>
+			<if test="deleted != null  ">
+				deleted=#{deleted},
+			</if>
+			<if test="createTime != null  ">
+				createTime=#{createTime},
+			</if>
+			<if test="updateTime != null  ">
+				updateTime=#{updateTime},
+			</if>
+			<if test="rank != null  ">
+				rank=#{rank},
+			</if>
+			<if test="actions != null  and actions != '' ">
+				actions=#{actions}
+			</if>
+		</trim>
+		where id=#{id}
+	</update>
+
+	<!-- 删除记录 -->
+	<update id="delete" parameterType="Object">
+		update sys_menu set deleted = 1 where id = #{id}
+	</update>
+
+	<!-- 根据id查询 系统菜单 -->
+	<select id="queryById" resultMap="BaseResultMap" parameterType="Object">
 		select
 		<include refid="Base_Column_List" />
-		from sys_menu
-		where id = #{id,jdbcType=INTEGER}
+		from sys_menu where id = #{id}
 	</select>
-	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-		delete from
-		sys_menu
-		where id = #{id,jdbcType=INTEGER}
-	</delete>
-	<insert id="insert" parameterType="com.dreamcc.gs.bean.Menu">
-		insert into sys_menu (id,
-		name, url,
-		parentId, deleted, createTime,
-		updateTime, rank, actions
-		)
-		values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
-		#{url,jdbcType=VARCHAR},
-		#{parentid,jdbcType=INTEGER},
-		#{deleted,jdbcType=INTEGER}, now(),
-		now(), #{rank,jdbcType=INTEGER},
-		#{actions,jdbcType=VARCHAR}
-		)
-	</insert>
-	<insert id="insertSelective" parameterType="com.dreamcc.gs.bean.Menu">
-		insert into sys_menu
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="id != null">
-				id,
-			</if>
-			<if test="name != null">
-				name,
-			</if>
-			<if test="url != null">
-				url,
-			</if>
-			<if test="parentid != null">
-				parentId,
-			</if>
-			<if test="deleted != null">
-				deleted,
-			</if>
-			<if test="createtime != null">
-				createTime,
-			</if>
-			<if test="updatetime != null">
-				updateTime,
-			</if>
-			<if test="rank != null">
-				rank,
-			</if>
-			<if test="actions != null">
-				actions,
-			</if>
-		</trim>
-		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="id != null">
-				#{id,jdbcType=INTEGER},
-			</if>
-			<if test="name != null">
-				#{name,jdbcType=VARCHAR},
-			</if>
-			<if test="url != null">
-				#{url,jdbcType=VARCHAR},
-			</if>
-			<if test="parentid != null">
-				#{parentid,jdbcType=INTEGER},
-			</if>
-			<if test="deleted != null">
-				#{deleted,jdbcType=INTEGER},
-			</if>
-			<if test="createtime != null">
-				now(),
-			</if>
-			<if test="updatetime != null">
-				now(),
-			</if>
-			<if test="rank != null">
-				#{rank,jdbcType=INTEGER},
-			</if>
-			<if test="actions != null">
-				#{actions,jdbcType=VARCHAR},
-			</if>
-		</trim>
-	</insert>
-	<update id="updateByPrimaryKeySelective" parameterType="com.dreamcc.gs.bean.Menu">
-		update sys_menu
-		<set>
-			<if test="name != null">
-				name = #{name,jdbcType=VARCHAR},
-			</if>
-			<if test="url != null">
-				url = #{url,jdbcType=VARCHAR},
-			</if>
-			<if test="parentid != null">
-				parentId = #{parentid,jdbcType=INTEGER},
-			</if>
-			<if test="deleted != null">
-				deleted = #{deleted,jdbcType=INTEGER},
-			</if>
-			<if test="createtime != null">
-				createTime = #{createtime,jdbcType=TIMESTAMP},
-			</if>
-			<if test="updatetime != null">
-				updateTime = now(),
-			</if>
-			<if test="rank != null">
-				rank = #{rank,jdbcType=INTEGER},
-			</if>
-			<if test="actions != null">
-				actions = #{actions,jdbcType=VARCHAR},
-			</if>
-		</set>
-		where id = #{id,jdbcType=INTEGER}
-	</update>
-	<update id="updateByPrimaryKey" parameterType="com.dreamcc.gs.bean.Menu">
-		update sys_menu
-		set name = #{name,jdbcType=VARCHAR},
-		url = #{url,jdbcType=VARCHAR},
-		parentId = #{parentid,jdbcType=INTEGER},
-		deleted =
-		#{deleted,jdbcType=INTEGER},
-		createTime =
-		#{createtime,jdbcType=TIMESTAMP},
-		updateTime = now(),
-		rank =
-		#{rank,jdbcType=INTEGER},
-		actions = #{actions,jdbcType=VARCHAR}
-		where id
-		= #{id,jdbcType=INTEGER}
-	</update>
-	<!-- ============================================================== -->
-	<!-- 查询系统所有有效菜单列表 -->
+
+	<!-- 系统菜单 列表总数 -->
+	<select id="queryByCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from sys_menu
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 查询系统菜单列表 -->
+	<select id="queryByList" resultMap="ExtResultMap" parameterType="Object">
+		select
+		<include refid="Base_Column_List" />
+		,(SELECT COUNT(*) FROM sys_menu c WHERE c.parentId = m.id) AS subCount
+		from sys_menu m
+		<include refid="Example_Where_Clause" />
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition}
+		</if>
+		<if
+			test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''">
+			${pager.mysqlQueryCondition}
+		</if>
+	</select>
+
+
+
+	<!-- 查询所有有效系统菜单列表 -->
 	<select id="queryByAll" resultMap="BaseResultMap" parameterType="Object">
-		select id,name,url,parentId,actions from sys_menu deleted = 0 order by
+		select id,name,url,parentId,actions from sys_menu deleted= 0 order by
 		rank desc
 	</select>
+
 	<!-- 获取顶级菜单 -->
 	<select id="getRootMenu" resultMap="BaseResultMap"
 		parameterType="Object">
@@ -164,13 +165,15 @@
 			and id != #{menuId}
 		</if>
 	</select>
+
+
 	<!-- 获取子菜单 -->
 	<select id="getChildMenu" resultMap="BaseResultMap"
 		parameterType="Object">
-		select id,name,url,parentId,actions from sys_menu where
-		deleted= 0 and
+		select id,name,url,parentId,actions from sys_menu where deleted= 0 and
 		parentId is not null
 	</select>
+
 	<!-- 根据角色Id获取菜单（不需要父菜单） -->
 	<select id="getMenuByRoleId" resultMap="BaseResultMap"
 		parameterType="Object">
@@ -212,4 +215,6 @@
 		)
 		)
 	</select>
-</mapper>
+
+
+</mapper>   

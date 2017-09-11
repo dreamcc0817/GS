@@ -2,227 +2,173 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dreamcc.gs.dao.UserMapper">
 	<resultMap id="BaseResultMap" type="com.dreamcc.gs.bean.User">
-		<id column="id" jdbcType="INTEGER" property="id" />
-		<result column="email" jdbcType="VARCHAR" property="email" />
-		<result column="pwd" jdbcType="VARCHAR" property="pwd" />
-		<result column="nickName" jdbcType="VARCHAR" property="nickname" />
-		<result column="state" jdbcType="INTEGER" property="state" />
-		<result column="loginCount" jdbcType="INTEGER" property="logincount" />
-		<result column="loginTime" jdbcType="TIMESTAMP" property="logintime" />
-		<result column="deleted" jdbcType="INTEGER" property="deleted" />
-		<result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
-		<result column="updateTime" jdbcType="TIMESTAMP" property="updatetime" />
-		<result column="createBy" jdbcType="INTEGER" property="createby" />
-		<result column="updateBy" jdbcType="INTEGER" property="updateby" />
-		<result column="superAdmin" jdbcType="INTEGER" property="superadmin" />
+		<result column="id" property="id" />
+		<result column="email" property="email" />
+		<result column="pwd" property="pwd" />
+		<result column="nickName" property="nickName" />
+		<result column="state" property="state" />
+		<result column="loginCount" property="loginCount" />
+		<result column="loginTime" property="loginTime" />
+		<result column="deleted" property="deleted" />
+		<result column="createTime" property="createTime" />
+		<result column="updateTime" property="updateTime" />
+		<result column="createBy" property="createBy" />
+		<result column="updateBy" property="updateBy" />
+		<result column="superAdmin" property="superAdmin" />
 	</resultMap>
+
+	<!-- sys_user table all fields -->
 	<sql id="Base_Column_List">
-		id, email, pwd, nickName, state, loginCount, loginTime, deleted,
-		createTime, updateTime,
-		createBy, updateBy, superAdmin
+		id,email,pwd,nickName,state,loginCount,loginTime,deleted,createTime,updateTime,createBy,updateBy,superAdmin
 	</sql>
-	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
-		resultMap="BaseResultMap">
-		select
-		<include refid="Base_Column_List" />
-		from sys_user
-		where id = #{id,jdbcType=INTEGER}
-	</select>
-	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-		delete from sys_user
-		where id = #{id,jdbcType=INTEGER}
+
+
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null">
+				and id = #{id}
+			</if>
+			<if test="email != null and email != ''">
+				and email like CONCAT('%', #{email}, '%')
+			</if>
+			<if test="nickName != null and nickName != ''">
+				and nickName like CONCAT('%', #{nickName}, '%')
+			</if>
+			<if test="state != null">
+				and state = #{state}
+			</if>
+			<if test="loginCount != null">
+				and loginCount = #{loginCount}
+			</if>
+			<if test="loginTime != null">
+				and loginTime = #{loginTime}
+			</if>
+			<if test="deleted != null">
+				and deleted = #{deleted}
+			</if>
+			<if test="createTime != null">
+				and createTime = #{createTime}
+			</if>
+			<if test="updateTime != null">
+				and updateTime = #{updateTime}
+			</if>
+			<if test="createBy != null">
+				and createBy = #{createBy}
+			</if>
+			<if test="updateBy != null">
+				and updateBy = #{updateBy}
+			</if>
+		</trim>
+	</sql>
+
+
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Object">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into
+		sys_user(id,email,pwd,nickName,state,loginCount,loginTime,deleted,createTime,updateTime,createBy,updateBy)
+		values(#{id},#{email},#{pwd},#{nickName},#{state},#{loginCount},#{loginTime},#{deleted},now(),now(),#{createBy},#{updateBy})
+	</insert>
+
+	<!-- 根据id，修改记录 -->
+	<update id="update" parameterType="Object">
+		update sys_user set
+		email=#{email},pwd=#{pwd},nickName=#{nickName},state=#{state},loginCount=#{loginCount},loginTime=#{loginTime},deleted=#{deleted},updateTime=now(),createBy=#{createBy},updateBy=#{updateBy}
+		where id=#{id}
+	</update>
+
+	<!-- 修改记录，只修改只不为空的字段 -->
+	<update id="updateBySelective" parameterType="Object">
+		update sys_user set
+		<trim suffixOverrides=",">
+			<if test="email != null  and email != '' ">
+				email=#{email},
+			</if>
+			<if test="pwd != null  and pwd != '' ">
+				pwd=#{pwd},
+			</if>
+			<if test="nickName != null  and nickName != '' ">
+				nickName=#{nickName},
+			</if>
+			<if test="state != null  ">
+				state=#{state},
+			</if>
+			<if test="loginCount != null  ">
+				loginCount=#{loginCount},
+			</if>
+			<if test="loginTime != null  ">
+				loginTime=#{loginTime},
+			</if>
+			<if test="deleted != null  ">
+				deleted=#{deleted},
+			</if>
+			<if test="createTime != null  ">
+				createTime=#{createTime},
+			</if>
+			<if test="updateTime != null  ">
+				updateTime=#{updateTime},
+			</if>
+			<if test="createBy != null  ">
+				createBy=#{createBy},
+			</if>
+			<if test="updateBy != null  ">
+				updateBy=#{updateBy},
+			</if>
+		</trim>
+		where id=#{id}
+	</update>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="Object">
+		delete from sys_user where id = #{id}
 	</delete>
-	<insert id="insert" parameterType="com.dreamcc.gs.bean.User">
-		insert into sys_user (id, email, pwd,
-		nickName, state, loginCount,
-		loginTime, deleted, createTime,
-		updateTime, createBy, updateBy,
-		superAdmin)
-		values (#{id,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR},
-		#{pwd,jdbcType=VARCHAR},
-		#{nickname,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, #{logincount,jdbcType=INTEGER},
-		#{logintime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=INTEGER}, now(),
-		now(), #{createby,jdbcType=INTEGER}, #{updateby,jdbcType=INTEGER},
-		#{superadmin,jdbcType=INTEGER})
-	</insert>
-	<insert id="insertSelective" parameterType="com.dreamcc.gs.bean.User">
-		insert into sys_user
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="id != null">
-				id,
-			</if>
-			<if test="email != null">
-				email,
-			</if>
-			<if test="pwd != null">
-				pwd,
-			</if>
-			<if test="nickname != null">
-				nickName,
-			</if>
-			<if test="state != null">
-				state,
-			</if>
-			<if test="logincount != null">
-				loginCount,
-			</if>
-			<if test="logintime != null">
-				loginTime,
-			</if>
-			<if test="deleted != null">
-				deleted,
-			</if>
-			<if test="createtime != null">
-				createTime,
-			</if>
-			<if test="updatetime != null">
-				updateTime,
-			</if>
-			<if test="createby != null">
-				createBy,
-			</if>
-			<if test="updateby != null">
-				updateBy,
-			</if>
-			<if test="superadmin != null">
-				superAdmin,
-			</if>
-		</trim>
-		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="id != null">
-				#{id,jdbcType=INTEGER},
-			</if>
-			<if test="email != null">
-				#{email,jdbcType=VARCHAR},
-			</if>
-			<if test="pwd != null">
-				#{pwd,jdbcType=VARCHAR},
-			</if>
-			<if test="nickname != null">
-				#{nickname,jdbcType=VARCHAR},
-			</if>
-			<if test="state != null">
-				#{state,jdbcType=INTEGER},
-			</if>
-			<if test="logincount != null">
-				#{logincount,jdbcType=INTEGER},
-			</if>
-			<if test="logintime != null">
-				#{logintime,jdbcType=TIMESTAMP},
-			</if>
-			<if test="deleted != null">
-				#{deleted,jdbcType=INTEGER},
-			</if>
-			<if test="createtime != null">
-				now(),
-			</if>
-			<if test="updatetime != null">
-				now(),
-			</if>
-			<if test="createby != null">
-				#{createby,jdbcType=INTEGER},
-			</if>
-			<if test="updateby != null">
-				#{updateby,jdbcType=INTEGER},
-			</if>
-			<if test="superadmin != null">
-				#{superadmin,jdbcType=INTEGER},
-			</if>
-		</trim>
-	</insert>
-	<update id="updateByPrimaryKeySelective" parameterType="com.dreamcc.gs.bean.User">
-		update sys_user
-		<set>
-			<if test="email != null">
-				email = #{email,jdbcType=VARCHAR},
-			</if>
-			<if test="pwd != null">
-				pwd = #{pwd,jdbcType=VARCHAR},
-			</if>
-			<if test="nickname != null">
-				nickName = #{nickname,jdbcType=VARCHAR},
-			</if>
-			<if test="state != null">
-				state = #{state,jdbcType=INTEGER},
-			</if>
-			<if test="logincount != null">
-				loginCount = #{logincount,jdbcType=INTEGER},
-			</if>
-			<if test="logintime != null">
-				loginTime = #{logintime,jdbcType=TIMESTAMP},
-			</if>
-			<if test="deleted != null">
-				deleted = #{deleted,jdbcType=INTEGER},
-			</if>
-			<if test="createtime != null">
-				createTime = #{createtime,jdbcType=TIMESTAMP},
-			</if>
-			<if test="updatetime != null">
-				updateTime = now(),
-			</if>
-			<if test="createby != null">
-				createBy = #{createby,jdbcType=INTEGER},
-			</if>
-			<if test="updateby != null">
-				updateBy = #{updateby,jdbcType=INTEGER},
-			</if>
-			<if test="superadmin != null">
-				superAdmin = #{superadmin,jdbcType=INTEGER},
-			</if>
-		</set>
-		where id = #{id,jdbcType=INTEGER}
-	</update>
-	<update id="updateByPrimaryKey" parameterType="com.dreamcc.gs.bean.User">
-		update sys_user
-		set email = #{email,jdbcType=VARCHAR},
-		pwd = #{pwd,jdbcType=VARCHAR},
-		nickName = #{nickname,jdbcType=VARCHAR},
-		state = #{state,jdbcType=INTEGER},
-		loginCount = #{logincount,jdbcType=INTEGER},
-		loginTime = #{logintime,jdbcType=TIMESTAMP},
-		deleted = #{deleted,jdbcType=INTEGER},
-		createTime = #{createtime,jdbcType=TIMESTAMP},
-		updateTime = now(),
-		createBy = #{createby,jdbcType=INTEGER},
-		updateBy = #{updateby,jdbcType=INTEGER},
-		superAdmin = #{superadmin,jdbcType=INTEGER}
-		where id = #{id,jdbcType=INTEGER}
-	</update>
-	<!-- ============================================================================================== -->
-	<select id="checkUsername" resultType="int" parameterType="string">
-		select count(1) from sys_user
-		where email = #{email}
+
+	<!-- 根据id查询 系统用户 -->
+	<select id="queryById" resultMap="BaseResultMap" parameterType="Object">
+		select
+		<include refid="Base_Column_List" />
+		from sys_user where id = #{id}
 	</select>
 
-	<select id="checkEmail" resultType="int" parameterType="string">
+	<!-- 系统用户 列表总数 -->
+	<select id="queryByCount" resultType="java.lang.Integer"
+		parameterType="Object">
 		select count(1) from sys_user
-		where email = #{email}
+		<include refid="Example_Where_Clause" />
 	</select>
 
-	<select id="selectLogin" resultMap="BaseResultMap"
-		parameterType="map">
+	<!-- 查询系统用户列表 -->
+	<select id="queryByList" resultMap="BaseResultMap"
+		parameterType="Object">
 		select
 		<include refid="Base_Column_List" />
 		from sys_user
-		where email = #{email}
-		and pwd = #{pwd}
+		<include refid="Example_Where_Clause" />
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition}
+		</if>
+		<if
+			test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''">
+			${pager.mysqlQueryCondition}
+		</if>
 	</select>
 
-<!-- 	<update id="updatePasswordByUsername" parameterType="map">
-		update sys_user set password = #{passwordNew},
-		update_time = now()
-		where email = #{email}
-	</update> -->
-
-	<select id="checkPassword" resultType="int" parameterType="map">
-		select count(1)
+	<!-- 用于登录检查 -->
+	<select id="queryLogin" resultMap="BaseResultMap" parameterType="Object">
+		select
+		<include refid="Base_Column_List" />
 		from sys_user
-		where pwd = "#{pwd}"
-		and id = #{userId}
+		where email=#{email} and pwd=#{pwd}
 	</select>
-	<select id="checkEmailByUserId" resultType="int" parameterType="map">
-		select count(1) from sys_user
-		where email = #{email}
-		and id != #{userId}
+
+	<!-- 用于登录检查 -->
+	<select id="getUserCountByEmail" resultType="int" parameterType="Object">
+		select count(1)
+		from sys_user where email=#{email}
 	</select>
-</mapper>
+</mapper>   

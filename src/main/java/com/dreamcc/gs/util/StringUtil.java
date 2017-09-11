@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 //import sun.io.ByteToCharConverter;
 //import sun.io.CharToByteConverter;
@@ -729,7 +729,7 @@ public class StringUtil
 
 	public static String[] split(String str1, String str2)
 	{
-		return org.apache.commons.lang.StringUtils.split(str1, str2);
+		return StringUtils.split(str1, str2);
 	}
 	
 	/**
@@ -807,7 +807,7 @@ public class StringUtil
 
 	public static String left(String str, int length)
 	{
-		return org.apache.commons.lang.StringUtils.left(str, length);
+		return StringUtils.left(str, length);
 	}
 	
 	/**
@@ -1019,27 +1019,27 @@ public class StringUtil
 	}
 	public static String replace(String src, String target, String rWith, int maxCount)
 	{
-		return org.apache.commons.lang.StringUtils.replace(src, target, rWith, maxCount);
+		return StringUtils.replace(src, target, rWith, maxCount);
 	}
 
 	public static boolean equals(String str1, String str2)
 	{
-		return org.apache.commons.lang.StringUtils.equals(str1, str2);
+		return StringUtils.equals(str1, str2);
 	}
 
 	public static boolean isAlphanumeric(String str)
 	{
-		return org.apache.commons.lang.StringUtils.isAlphanumeric(str);
+		return StringUtils.isAlphanumeric(str);
 	}
 
 	public static boolean isNumeric(String str)
 	{
-		return org.apache.commons.lang.StringUtils.isNumeric(str);
+		return StringUtils.isNumeric(str);
 	}
 
 	public static String[] stripAll(String[] strs)
 	{
-		return org.apache.commons.lang.StringUtils.stripAll(strs);
+		return StringUtils.stripAll(strs);
 	}
 //	public static void main(String[] args)
 //	{

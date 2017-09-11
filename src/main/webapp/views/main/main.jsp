@@ -25,17 +25,15 @@
 			</div>
 		</div>
 	</div>
-
-	<div data-options="region:'west',split:true,title:'West'"
-		style="width: 150px; padding: 10px;">
-		<div id="tree-box" class="easyui-accordion"
-			data-options="fit:true,border:false">
+	<!-- 树形菜单 -->
+	<div data-options="region:'west',split:true,title:'Navigate'" style="width:200px;">
+		<div id="tree-box" class="easyui-accordion" data-options="fit:true,border:false">
 			<c:forEach var="item" items="${menuList}">
-				<div title="${item.text}">
-					<c:forEach var="node" items="${item.children}">
-						<a class="menu-item" href="${msUrl}${node.url}">${node.text}</a>
-					</c:forEach>
-				</div>
+			<div title="${item.text}">
+				<c:forEach var="node" items="${item.children}">
+				<a class="menu-item" href="${msUrl}${node.url}">${node.text}</a>
+				</c:forEach>
+			</div>
 			</c:forEach>
 		</div>
 	</div>

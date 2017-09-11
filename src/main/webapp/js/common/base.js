@@ -1,157 +1,168 @@
-$package('dreamcc');
-
-var dreamcc = {
-		/* Json工具类 */
-		isJson:function(str){
-		var obj = null;
+$package('YiYa');
+var YiYa={
+	/*Json 工具类*/
+	isJson:function(str){
+		var obj = null; 
 		try{
-			obj = dreamcc.paserJson(str);
+			obj = YiYa.paserJson(str);
 		}catch(e){
 			return false;
 		}
-		var result = typeof(obj) == "object" && Object.prototype.toString.call(obj).toLowerCase() == "[object object]" && !obj.length;
+		var result = typeof(obj) == "object" && Object.prototype.toString.call(obj).toLowerCase() == "[object object]" && !obj.length; 
 		return result;
 	},
-	/* 转化为字符串 */
 	paserJson:function(str){
 		return eval("("+str+")");
 	},
-	/* 弹出框 */
-	alert:function(title,msg,icon,callback){
-		$.message.alert(title,msg,icon,callback);
+	/*弹出框*/
+	alert:function(title, msg, icon, callback){
+		$.messager.alert(title,msg,icon,callback);
 	},
-	/* 确认弹出框 */
-	confirm:function(title,msg,icon,callback){
-		$.message.confirm(title,msg,callback);
+	/*弹出框*/
+	confirm:function(title, msg,callback){
+		$.messager.confirm(title,msg,callback);
 	},
 	progress:function(title,msg){
 		 var win = $.messager.progress({  
-           title: title ||'Please waiting',  
-           msg: msg ||'Loading data...'  
-        }); 
+            title: title ||'Please waiting',  
+            msg: msg ||'Loading data...'  
+         }); 
 	},
 	closeProgress:function(){
 		$.messager.progress('close');
 	},
-	/* 重新登录页面 */
+	/*重新登录页面*/
 	toLogin:function(){
-		windows.top.location = urls['msUrl']+"/views/login/login.jsp";
+		window.top.location= urls['msUrl']+"/login.shtml";
 	},
-	/* 检查登录是否超时 */
-	checkLogin:function(data){
+	checkLogin:function(data){//检查是否登录超时
 		if(data.logoutFlag){
-			dreamcc.closeProcess();
-			dreamcc.alert("提示","登录超时,点击确定重新登录","error",dreamcc.toLogin);
+			YiYa.closeProgress();
+			YiYa.alert('提示',"登录超时,点击确定重新登录.",'error',YiYa.toLogin);
 			return false;
 		}
 		return true;
 	},
-	ajaxSublime:function(form,option){
-		form.ajaxSublime(option);
+	ajaxSubmit:function(form,option){
+		form.ajaxSubmit(option);
 	},
-	ajaxJson:function(url,option,callback){
+	ajaxJson: function(url,option,callback){
 		$.ajax(url,{
 			type:'post',
-			dataType:'option',
-			success:function(data){
-				if(!dreamcc.checkLogin(data)){
-					return false;
-				}
-				if($.isFunction(callback)){
-					callback(data);
-				}
-			},
-			error:function(response,textStatus,errorThrown){
-				try{
-					dreamcc.closeProcess();
-					var data = $.parseJSON(response.responseText);
-					if (!dreamcc.checkLogin(data)) {
-						return false;
-					}else{
-						dreamcc.alert("提示",data.msg||"请求出现异常,请联系管理员",'error');	
-					}					
-				}catch(e){
-					alert(e);
-					dreamcc.alert("提示","请求出现异常,请联系管理员","error");
-				   }
-				},
-			complete:function(){
-
-			}
+			 	dataType:'json',
+			 	data:option,
+			 	success:function(data){
+			 		//坚持登录
+			 		if(!YiYa.checkLogin(data)){
+			 			return false;
+			 		}		 	
+			 		if($.isFunction(callback)){
+			 			callback(data);
+			 		}
+			 	},
+			 	error:function(response, textStatus, errorThrown){
+			 		try{
+			 			YiYa.closeProgress();
+			 			var data = $.parseJSON(response.responseText);
+				 		//检查登录
+				 		if(!YiYa.checkLogin(data)){
+				 			return false;
+				 		}else{
+					 		YiYa.alert('提示', data.msg || "请求出现异常,请联系管理员",'error');
+					 	}
+			 		}catch(e){
+			 			alert(e);
+			 			YiYa.alert('提示',"请求出现异常,请联系管理员1",'error');
+			 		}
+			 	},
+			 	complete:function(){
+			 	
+			 	}
 		});
 	},
 	submitForm:function(form,callback,dataType){
-		var option = {
-			type:"post",
-			dataType:dataType||"json",
-			success:function(data){
-				if($.isFunction(callback)){
-					callback(data);
-				}
-			},
-			error:function(response,textStatus,errorThrown){
-				try{
-					dreamcc.closeProcess();
-					var data = $.parseJSON(response.responseText);
-					//检查登录
-					if (!dreamcc.checkLogin(data)) {
-						return false;
-					}else{
-						dreamcc.alert("提示",data.msg||"请求出现异常,请联系管理员","error");
-					}
-				}catch(e){
-					alert(e);
-		 			YiYa.alert('提示',"请求出现异常,请联系管理员",'error');
-				}
-			},
-			complete:function(){
-
-			}
-		}
-		deramcc.ajaxSublime(form,option);
+			var option =
+			{
+			 	type:'post',
+			 	dataType: dataType||'json',
+			 	success:function(data){
+			 		if($.isFunction(callback)){
+			 			callback(data);
+			 		}
+			 	},
+			 	error:function(response, textStatus, errorThrown){
+			 		try{
+			 			YiYa.closeProgress();
+			 			var data = $.parseJSON(response.responseText);
+				 		//检查登录
+				 		if(!YiYa.checkLogin(data)){
+				 			return false;
+				 		}else{
+					 		YiYa.alert('提示', data.msg || "请求出现异常,请联系管理员",'error');
+					 	}
+			 		}catch(e){
+			 			alert(e);
+			 			YiYa.alert('提示',"请求出现异常,请联系管理员1",'error');
+			 		}
+			 	},
+			 	complete:function(){
+			 	
+			 	}
+			 }
+			 YiYa.ajaxSubmit(form,option);
 	},
 	saveForm:function(form,callback){
-		if(form.form("validate")){
-			dreamcc.progress("Please waiting","Save ing...");
-			dreamcc.submitForm(form,function(data){
-				dreamcc.closeProcess();
+		if(form.form('validate')){
+			YiYa.progress('Please waiting','Save ing...');
+			//ajax提交form
+			YiYa.submitForm(form,function(data){
+				YiYa.closeProgress();
+			 	if(data.success){
+			 		if(callback){
+				       	callback(data);
+				    }else{
+			       		YiYa.alert('提示','保存成功.','info');
+			        } 
+		        }else{
+		       	   YiYa.alert('提示',data.msg,'error');  
+		        }
+			});
+		 }
+	},
+	/**
+	 * 
+	 * @param {} url
+	 * @param {} option {id:''} 
+	 */
+	getById:function(url,option,callback){
+		YiYa.progress();
+		YiYa.ajaxJson(url,option,function(data){
+			YiYa.closeProgress();
+			if(data.success){
+				if(callback){
+			       	callback(data);
+			    }
+			}else{
+				YiYa.alert('提示',data.msg,'error');  
+			}
+		});
+	},
+	deleteForm:function(url,option,callback){
+		YiYa.progress();
+		YiYa.ajaxJson(url,option,function(data){
+				YiYa.closeProgress();
 				if(data.success){
 					if(callback){
-						callback(data)
-					}else{
-						dreamcc.alert("提示",data.msg,"error");
-					}
+				       	callback(data);
+				    }
+				}else{
+					YiYa.alert('提示',result.msg,'error');  
 				}
-			});
-		}
-	},//saveForm
-	getById:function(url,option,callback){
-		dreamcc.progress();
-		dreamcc.ajaxJson(url,option,function(data){
-			dreamcc.closeProcess();
-			if(data.success){
-				if (callback) {
-					callback(data);
-				}
-			}else{
-				dreamcc.alert("提示",data.msg,"error");
-			}
 		});
-	},//getById
-	deleteForm:function(url,option,callback){
-		dreamcc.progress();
-		dreamcc.ajaxJson(url,option,function(data){
-			dreamcc.closeProcess();
-			if (data.success) {
-				callback(data);
-			}else{
-				dreamcc.alert("提示",result.msg,"error");
-			}
-		});
-	}//deleteForm
+	}
 }
 
-/*自定义密码验证*/
+/* 自定义密码验证*/
 $.extend($.fn.validatebox.defaults.rules, {  
     equals: {  
         validator: function(value,param){  
@@ -162,11 +173,11 @@ $.extend($.fn.validatebox.defaults.rules, {
 });  
 
 /*表单转成json数据*/
-$.fn.serializeObject = function(){
-	var o = {};
-	var a = this.serializeArray();
-	$.each(a,function(){
-		    if (o[this.name]) {
+$.fn.serializeObject = function() {
+    var o = {};
+    var a = this.serializeArray();
+    $.each(a, function() {
+        if (o[this.name]) {
             if (!o[this.name].push) {
                 o[this.name] = [ o[this.name] ];
             }
@@ -174,7 +185,8 @@ $.fn.serializeObject = function(){
         } else {
             o[this.name] = this.value || '';
         }
-	});
+    });
+    return o;
 }
 
 /* easyui datagrid 添加和删除按钮方法*/

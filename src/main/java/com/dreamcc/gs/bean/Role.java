@@ -1,85 +1,78 @@
 package com.dreamcc.gs.bean;
 
-import java.util.Date;
 
-public class Role {
-    private Integer id;
 
-    private String rolename;
+public class Role extends BaseBean {
+	private Integer id;// id主键
+	private String roleName;// 角色名称
+	private java.sql.Timestamp createTime;// 创建时间
+	private Integer createBy;// 创建人
+	private java.sql.Timestamp updateTime;// 修改时间
+	private Integer updateBy;// 修改人
+	private Integer state;// 状态0=可用 1=禁用
+	private String descr;// 角色描述
 
-    private Date createtime;
+	public Integer getId() {
+		return this.id;
+	}
 
-    private Integer createby;
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    private Date updatetime;
+	public String getRoleName() {
+		return roleName;
+	}
 
-    private Integer updateby;
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
 
-    private Integer state;
+	public java.sql.Timestamp getCreateTime() {
+		return this.createTime;
+	}
 
-    private String descr;
+	public void setCreateTime(java.sql.Timestamp createTime) {
+		this.createTime = createTime;
+	}
 
-    public Integer getId() {
-        return id;
-    }
+	public Integer getCreateBy() {
+		return this.createBy;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public void setCreateBy(Integer createBy) {
+		this.createBy = createBy;
+	}
 
-    public String getRolename() {
-        return rolename;
-    }
+	public java.sql.Timestamp getUpdateTime() {
+		return this.updateTime;
+	}
 
-    public void setRolename(String rolename) {
-        this.rolename = rolename == null ? null : rolename.trim();
-    }
+	public void setUpdateTime(java.sql.Timestamp updateTime) {
+		this.updateTime = updateTime;
+	}
 
-    public Date getCreatetime() {
-        return createtime;
-    }
+	public Integer getUpdateBy() {
+		return this.updateBy;
+	}
 
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
-    }
+	public void setUpdateBy(Integer updateBy) {
+		this.updateBy = updateBy;
+	}
 
-    public Integer getCreateby() {
-        return createby;
-    }
+	public Integer getState() {
+		return this.state;
+	}
 
-    public void setCreateby(Integer createby) {
-        this.createby = createby;
-    }
+	public void setState(Integer state) {
+		this.state = state;
+	}
 
-    public Date getUpdatetime() {
-        return updatetime;
-    }
+	public String getDescr() {
+		return this.descr;
+	}
 
-    public void setUpdatetime(Date updatetime) {
-        this.updatetime = updatetime;
-    }
-
-    public Integer getUpdateby() {
-        return updateby;
-    }
-
-    public void setUpdateby(Integer updateby) {
-        this.updateby = updateby;
-    }
-
-    public Integer getState() {
-        return state;
-    }
-
-    public void setState(Integer state) {
-        this.state = state;
-    }
-
-    public String getDescr() {
-        return descr;
-    }
-
-    public void setDescr(String descr) {
-        this.descr = descr == null ? null : descr.trim();
-    }
+	public void setDescr(String descr) {
+		this.descr = descr;
+	}
 }

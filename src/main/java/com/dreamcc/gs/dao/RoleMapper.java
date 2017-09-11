@@ -1,17 +1,20 @@
 package com.dreamcc.gs.dao;
 
-import com.dreamcc.gs.bean.Role;
+import java.util.List;
 
-public interface RoleMapper {
-    int deleteByPrimaryKey(Integer id);
+public interface RoleMapper<T> extends BaseMapper<T> {
 
-    int insert(Role record);
+	/**
+	 * 查询全部有效的权限
+	 * 
+	 * @return
+	 */
+	public List<T> queryAllList();
 
-    int insertSelective(Role record);
-
-    Role selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(Role record);
-
-    int updateByPrimaryKey(Role record);
+	/**
+	 * 根据用户Id查询权限
+	 * 
+	 * @return
+	 */
+	public List<T> queryByUserid(Integer userid);
 }

@@ -1,33 +1,59 @@
 package com.dreamcc.gs.bean;
 
-public class RoleRel {
-    private Integer roleid;
+public class RoleRel extends BaseBean {
 
-    private Integer objid;
+	private Integer roleId;// 角色主键 sys_role.id
+	private Integer objId;// 关联主键 type=0管理sys_menu.id, type=1关联sys_user.id
+	private Integer relType;// 关联类型 0=菜单,1=用户
 
-    private Integer reltype;
+	/**
+	 * 枚举
+	 * 
+	 * @author lu
+	 *
+	 */
+	public static enum RelType {
+		MENU(0, "菜单"), USER(1, "用户"), BTN(2, "按钮");
+		public int key;
+		public String value;
 
-    public Integer getRoleid() {
-        return roleid;
-    }
+		private RelType(int key, String value) {
+			this.key = key;
+			this.value = value;
+		}
 
-    public void setRoleid(Integer roleid) {
-        this.roleid = roleid;
-    }
+		public static RelType get(int key) {
+			RelType[] values = RelType.values();
+			for (RelType object : values) {
+				if (object.key == key) {
+					return object;
+				}
+			}
+			return null;
+		}
+	}
 
-    public Integer getObjid() {
-        return objid;
-    }
+	public Integer getRoleId() {
+		return this.roleId;
+	}
 
-    public void setObjid(Integer objid) {
-        this.objid = objid;
-    }
+	public void setRoleId(Integer roleId) {
+		this.roleId = roleId;
+	}
 
-    public Integer getReltype() {
-        return reltype;
-    }
+	public Integer getObjId() {
+		return this.objId;
+	}
 
-    public void setReltype(Integer reltype) {
-        this.reltype = reltype;
-    }
+	public void setObjId(Integer objId) {
+		this.objId = objId;
+	}
+
+	public Integer getRelType() {
+		return this.relType;
+	}
+
+	public void setRelType(Integer relType) {
+		this.relType = relType;
+	}
 }
