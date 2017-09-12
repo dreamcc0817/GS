@@ -45,7 +45,7 @@ public class MainController extends BaseController {
 	private UserService<User> userService;
 
 	@Autowired(required = false)
-	private MenuBtnService menuBtnService;
+	private MenuBtnService<MenuBtn> menuBtnService;
 
 	/**
 	 * 登录页面
@@ -108,7 +108,7 @@ public class MainController extends BaseController {
 	@RequestMapping("/logout")
 	public void logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		SessionUtils.removeUser(request);
-		response.sendRedirect(URLUtils.get("msUrl") + "/login.shtml");
+		response.sendRedirect(URLUtils.get("msUrl") + "/login.jsp");
 	}
 
 	/**

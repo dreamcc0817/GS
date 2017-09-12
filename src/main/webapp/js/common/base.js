@@ -33,7 +33,7 @@ var YiYa={
 	},
 	/*重新登录页面*/
 	toLogin:function(){
-		window.top.location= urls['msUrl']+"/login.shtml";
+		window.top.location= urls['msUrl']+"/login.html";
 	},
 	checkLogin:function(data){//检查是否登录超时
 		if(data.logoutFlag){

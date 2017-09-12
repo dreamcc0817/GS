@@ -6,8 +6,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%@include file="/views/resource.jsp"%>
-    <link rel="stylesheet" type="text/css" href="css/main/main.css">
-    <script type="text/javascript" src="js/main/main.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8080/GS/css/main/main.css">
+    <script type="text/javascript" src="http://127.0.0.1:8080/GS/js/main/main.js"></script>
 <title>智慧平台</title>
 </head>
 <body class="easyui-layout">
@@ -60,7 +60,7 @@
 		title="修改用户密码"
 		data-options="closed:true,iconCls:'icon-save',modal:true"
 		style="width: 350px; height: 200px;">
-		<form id="pwdForm" action="modifyPwd.do" class="ui-form" method="post">
+		<form id="pwdForm" action="modifyPwd" class="ui-form" method="post">
 			<input class="hidden" name="id"> <input class="hidden"
 				name="email">
 			<div class="ui-edit">

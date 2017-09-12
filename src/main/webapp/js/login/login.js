@@ -1,18 +1,18 @@
-$package('YiYa.login');
-YiYa.login = function(){
+$package('dreamcc.login');
+dreamcc.login = function(){
 	return {
 		toLogin:function(){
 			try{
 				var form = $("#loginForm");
 				if(form.form('validate')){
-					YiYa.progress('Please waiting','Loading...');
-					YiYa.submitForm(form,function(data){
-						YiYa.closeProgress();
-						YiYa.login.loadVrifyCode();//刷新验证码
+					dreamcc.progress('Please waiting','Loading...');
+					dreamcc.submitForm(form,function(data){
+						dreamcc.closeProgress();
+						dreamcc.login.loadVrifyCode();//刷新验证码
 						if(data.success){
-					 		window.location= "main.shtml";
+					 		window.location= "views/main/main.jsp";
 				        }else{
-				       	   YiYa.alert('提示',data.msg,'error');  
+				       	   dreamcc.alert('提示',data.msg,'error');
 				        }
 					});
 				}
@@ -30,14 +30,14 @@ YiYa.login = function(){
 				window.top.location =  window.self.location;
 			}
 			//验证码图片绑定点击事件
-			$(".vc-pic").click(YiYa.login.loadVrifyCode);
+			$(".vc-pic").click(dreamcc.login.loadVrifyCode);
 			
 			var form = $("#loginForm");
-			form.submit(YiYa.login.toLogin);
+			form.submit(dreamcc.login.toLogin);
 		}
 	}
 }();
 
 $(function(){
-	YiYa.login.init();
+	dreamcc.login.init();
 });		
