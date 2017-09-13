@@ -1,15 +1,19 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<title>用户登录</title>
 		<%@include file="/views/resource.jsp" %>
-    	<link rel="stylesheet" type="text/css" href="./css/main/mainOld.css">
-    	<link rel="stylesheet" type="text/css" href="./css/login/loginOld.css">
+		<%
+		pageContext.setAttribute("APP_PATH",request.getContextPath());
+		%>
+				<script type="text/javascript" src="${APP_PATH}/js/sys/login.js"></script>
+    	<link rel="stylesheet" type="text/css" href="${APP_PATH}/css/main/mainOld.css">
+    	<link rel="stylesheet" type="text/css" href="${APP_PATH}/css/login/loginOld.css">
 	</head>
-	<form id="loginForm" action="toLogin" method="post">
-	<body id=userlogin_body>
+	<form id="loginForm" action="toLogin.do" method="post">
+	<body id="userlogin_body">
 		<div></div>
 		<div id=user_login>
 			<dl>
@@ -52,6 +56,5 @@
 		</div>
 		<div></div>
 		</form>
-		<script type="text/javascript" src="./js/login/login.js"></script>
 	</body>
 </html>

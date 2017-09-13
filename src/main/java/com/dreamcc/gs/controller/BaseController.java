@@ -66,7 +66,7 @@ public class BaseController {
 	  */
 	public Map<String,Object> getRootMap(){
 		Map<String,Object> rootMap = new HashMap<String, Object>();
-		//添加url到 Map中
+		//添加url到 Map中		
 		rootMap.putAll(URLUtils.getUrlMap());
 		return rootMap;
 	}

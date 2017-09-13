@@ -6,8 +6,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%@include file="/views/resource.jsp"%>
-    <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8080/GS/css/main/main.css">
-    <script type="text/javascript" src="http://127.0.0.1:8080/GS/js/main/main.js"></script>
+<%
+	pageContext.setAttribute("APP_PATH", request.getContextPath());
+	System.out.println(request.getContextPath().toString());
+%>
+    <link rel="stylesheet" type="text/css" href="${APP_PATH}/css/main/main.css">
+    <script type="text/javascript" src="http://127.0.0.1:8080/GS/js/sys/main.js"></script>
 <title>智慧平台</title>
 </head>
 <body class="easyui-layout">

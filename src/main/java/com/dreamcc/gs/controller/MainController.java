@@ -57,7 +57,7 @@ public class MainController extends BaseController {
 	@RequestMapping("/login")
 	public ModelAndView login(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Map<String, Object> context = getRootMap();
-		return forword("login", context);
+		return forword("login/loginOld", context);
 	}
 
 	@RequestMapping("/toLogin")

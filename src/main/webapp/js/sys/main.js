@@ -1,23 +1,23 @@
-$package("dreamcc.main");
+$package('dreamcc.main');
 
 dreamcc.main = function(){
-	return{
+	return {
 		treeSelect:function(){
 			var _this = $(this);
-			var title = _this.text();
-			var url = this.attr("href");
+			var title=_this.text();
+			var url=_this.attr('href');
 			dreamcc.main.addTab(title,url);
 			return false;
-		},// treeSelect
+		},
 		treeInit:function(){
-			var $items = $("#tree-box").find(".menu-item");
+			var  $items =  $('#tree-box').find(".menu-item");
 			$items.bind('click',this.treeSelect);
-		},// treeInit
+		},
 		addTab:function(_title,_url){
-			var boxId = "#tab-box";
-			if($(boxId).tabs("exists",title)){
-				var tab = $(boxId).tabs("getTab",_title);
-				var index = $(boxId).tabs("getTabIndex",tab);
+			var boxId = '#tab-box';
+			if($(boxId).tabs('exists',_title) ){
+				var tab = $(boxId).tabs('getTab',_title);
+				var index = $(boxId).tabs('getTabIndex',tab);
 				$(boxId).tabs('select',index);
 				if(tab && tab.find('iframe').length > 0){  
 					 var _refresh_ifram = tab.find('iframe')[0];  
@@ -28,9 +28,10 @@ dreamcc.main = function(){
 				$(boxId).tabs('add',{
 					    title:_title,
 					    content:_content,
-					    closable:true});				
+					    closable:true});
+				
 			}
-		},// addTab
+		},
 		menuHover:function(){
 			//菜单鼠标进入效果
 			$('.menu-item').hover(
@@ -45,13 +46,13 @@ dreamcc.main = function(){
 					});
 				}
 			);
-		},//menuHover
+		},
 		modifyPwd:function(){
 			var pwdForm = $("#pwdForm");
 			if(pwdForm.form('validate')){
 				var parentId =$('#search_parentId').val();
 				$("#edit_parentId").val(parentId)
-				YiYa.saveForm(pwdForm,function(data){
+				dreamcc.saveForm(pwdForm,function(data){
 					$('#modify-pwd-win').dialog('close');
 				    pwdForm.resetForm();
 				});

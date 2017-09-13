@@ -20,7 +20,7 @@ public class MenuBtnService<T> extends BaseService<T> {
 		return mapper;
 	}
 
-	public List<T> queryAll() {
+	public List<T> queryByAll() {
 		return getMapper().queryByAll();
 	}
 

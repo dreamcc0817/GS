@@ -1,10 +1,10 @@
-$package('YiYa');
-var YiYa={
+$package('dreamcc');
+var dreamcc={
 	/*Json 工具类*/
 	isJson:function(str){
 		var obj = null; 
 		try{
-			obj = YiYa.paserJson(str);
+			obj = dreamcc.paserJson(str);
 		}catch(e){
 			return false;
 		}
@@ -37,8 +37,8 @@ var YiYa={
 	},
 	checkLogin:function(data){//检查是否登录超时
 		if(data.logoutFlag){
-			YiYa.closeProgress();
-			YiYa.alert('提示',"登录超时,点击确定重新登录.",'error',YiYa.toLogin);
+			dreamcc.closeProgress();
+			dreamcc.alert('提示',"登录超时,点击确定重新登录.",'error',dreamcc.toLogin);
 			return false;
 		}
 		return true;
@@ -53,7 +53,7 @@ var YiYa={
 			 	data:option,
 			 	success:function(data){
 			 		//坚持登录
-			 		if(!YiYa.checkLogin(data)){
+			 		if(!dreamcc.checkLogin(data)){
 			 			return false;
 			 		}		 	
 			 		if($.isFunction(callback)){
@@ -62,17 +62,17 @@ var YiYa={
 			 	},
 			 	error:function(response, textStatus, errorThrown){
 			 		try{
-			 			YiYa.closeProgress();
+			 			dreamcc.closeProgress();
 			 			var data = $.parseJSON(response.responseText);
 				 		//检查登录
-				 		if(!YiYa.checkLogin(data)){
+				 		if(!dreamcc.checkLogin(data)){
 				 			return false;
 				 		}else{
-					 		YiYa.alert('提示', data.msg || "请求出现异常,请联系管理员",'error');
+					 		dreamcc.alert('提示', data.msg || "请求出现异常,请联系管理员",'error');
 					 	}
 			 		}catch(e){
 			 			alert(e);
-			 			YiYa.alert('提示',"请求出现异常,请联系管理员1",'error');
+			 			dreamcc.alert('提示',"请求出现异常,请联系管理员1",'error');
 			 		}
 			 	},
 			 	complete:function(){
@@ -92,39 +92,39 @@ var YiYa={
 			 	},
 			 	error:function(response, textStatus, errorThrown){
 			 		try{
-			 			YiYa.closeProgress();
+			 			dreamcc.closeProgress();
 			 			var data = $.parseJSON(response.responseText);
 				 		//检查登录
-				 		if(!YiYa.checkLogin(data)){
+				 		if(!dreamcc.checkLogin(data)){
 				 			return false;
 				 		}else{
-					 		YiYa.alert('提示', data.msg || "请求出现异常,请联系管理员",'error');
+					 		dreamcc.alert('提示', data.msg || "请求出现异常,请联系管理员",'error');
 					 	}
 			 		}catch(e){
 			 			alert(e);
-			 			YiYa.alert('提示',"请求出现异常,请联系管理员1",'error');
+			 			dreamcc.alert('提示',"请求出现异常,请联系管理员1",'error');
 			 		}
 			 	},
 			 	complete:function(){
 			 	
 			 	}
 			 }
-			 YiYa.ajaxSubmit(form,option);
+			 dreamcc.ajaxSubmit(form,option);
 	},
 	saveForm:function(form,callback){
 		if(form.form('validate')){
-			YiYa.progress('Please waiting','Save ing...');
+			dreamcc.progress('Please waiting','Save ing...');
 			//ajax提交form
-			YiYa.submitForm(form,function(data){
-				YiYa.closeProgress();
+			dreamcc.submitForm(form,function(data){
+				dreamcc.closeProgress();
 			 	if(data.success){
 			 		if(callback){
 				       	callback(data);
 				    }else{
-			       		YiYa.alert('提示','保存成功.','info');
+			       		dreamcc.alert('提示','保存成功.','info');
 			        } 
 		        }else{
-		       	   YiYa.alert('提示',data.msg,'error');  
+		       	   dreamcc.alert('提示',data.msg,'error');  
 		        }
 			});
 		 }
@@ -135,28 +135,28 @@ var YiYa={
 	 * @param {} option {id:''} 
 	 */
 	getById:function(url,option,callback){
-		YiYa.progress();
-		YiYa.ajaxJson(url,option,function(data){
-			YiYa.closeProgress();
+		dreamcc.progress();
+		dreamcc.ajaxJson(url,option,function(data){
+			dreamcc.closeProgress();
 			if(data.success){
 				if(callback){
 			       	callback(data);
 			    }
 			}else{
-				YiYa.alert('提示',data.msg,'error');  
+				dreamcc.alert('提示',data.msg,'error');  
 			}
 		});
 	},
 	deleteForm:function(url,option,callback){
-		YiYa.progress();
-		YiYa.ajaxJson(url,option,function(data){
-				YiYa.closeProgress();
+		dreamcc.progress();
+		dreamcc.ajaxJson(url,option,function(data){
+				dreamcc.closeProgress();
 				if(data.success){
 					if(callback){
 				       	callback(data);
 				    }
 				}else{
-					YiYa.alert('提示',result.msg,'error');  
+					dreamcc.alert('提示',result.msg,'error');  
 				}
 		});
 	}
