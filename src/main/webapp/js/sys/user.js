@@ -1,8 +1,8 @@
-$package("dreamcc.user");
-dreamcc.sysUser = function(){
+$package('dreamcc.user');
+dreamcc.user = function(){
 	var _box = null;
 	var _this = {
-		updatePwdAction:'updatePwd.do',
+		updatePwdAction:'updatePwd',
 		editPwdForm:function(){
 			return $("#pwdForm");
 		},
@@ -23,17 +23,17 @@ dreamcc.sysUser = function(){
 				_this.savePwd();
 			});
 			_this.editPwdWin().find("#btn-pwd-close").click(function(){	
-				$.messager.confirm('确认','确定关闭对话框吗?',function(r){  
+				$.messager.confirm('确认','确认要关闭窗口吗?',function(r){  
 				    if (r){  
-				     	_this.editPwdWin().dialog('关闭');
+				     	_this.editPwdWin().dialog('close');
 				    }  
 				});
 			});
 		},
 		config:{
   			dataGrid:{
-  				title:'人员信息',
-	   			url:'dataList.do',
+  				title:'SiteType List',
+	   			url:'dataList',
 	   			columns:[[
 						{field:'id',checkbox:true},
 						{field:'email',title:'Email',width:120,sortable:true},
@@ -51,9 +51,9 @@ dreamcc.sysUser = function(){
 								return "禁用";
 							}
 						}},
-						{field:'createTime',title:'创建时间',width:120,sortable:true},
-						{field:'loginCount',title:'登出时间',align:'right',width:80,sortable:true},
-						{field:'loginTime',title:'登录时间',width:120,sortable:true}
+						{field:'createTime',title:'创建日期',width:120,sortable:true},
+						{field:'loginCount',title:'登录次数',align:'right',width:80,sortable:true},
+						{field:'loginTime',title:'最近一次登录时间',width:120,sortable:true}
 				]],
 				toolbar:[
 					{id:'btnadd',text:'增加',btnType:'add'},
@@ -67,7 +67,7 @@ dreamcc.sysUser = function(){
 								_this.editPwdWin().window('open'); 
 							}
 						}},
-					{id:'btndelete',text:'Delete',btnType:'remove'}
+					{id:'btndelete',text:'删除',btnType:'remove'}
 				]
 			}
 		},
@@ -81,5 +81,5 @@ dreamcc.sysUser = function(){
 }();
 
 $(function(){
-	dreamcc.sysUser.init();
-});
+	dreamcc.user.init();
+});		

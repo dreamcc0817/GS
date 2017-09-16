@@ -44,6 +44,7 @@ public class URLUtils {
 	public static String getReqUri(String reqUrl){
 		try {
 			URL url = new URL(reqUrl);
+			return url.getPath();
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

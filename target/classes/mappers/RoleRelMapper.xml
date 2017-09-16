@@ -32,8 +32,7 @@
 
 	<!-- 插入记录 -->
 	<insert id="add" parameterType="Object">
-		<selectKey resultType="java.lang.Integer" order="AFTER"
-			keyProperty="id">
+		<selectKey resultType="java.lang.Integer" order="AFTER">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 		insert into sys_role_rel(roleId,objId,relType)

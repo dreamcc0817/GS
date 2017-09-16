@@ -33,7 +33,7 @@ var dreamcc={
 	},
 	/*重新登录页面*/
 	toLogin:function(){
-		window.top.location= urls['msUrl']+"/login.html";
+		window.top.location= urls['msUrl']+"/login";
 	},
 	checkLogin:function(data){//检查是否登录超时
 		if(data.logoutFlag){
@@ -48,7 +48,7 @@ var dreamcc={
 	},
 	ajaxJson: function(url,option,callback){
 		$.ajax(url,{
-			type:'post',
+			    type:'post',
 			 	dataType:'json',
 			 	data:option,
 			 	success:function(data){
@@ -72,7 +72,7 @@ var dreamcc={
 					 	}
 			 		}catch(e){
 			 			alert(e);
-			 			dreamcc.alert('提示',"请求出现异常,请联系管理员1",'error');
+			 			dreamcc.alert('提示',"请求出现异常,请联系管理员",'error');
 			 		}
 			 	},
 			 	complete:function(){
@@ -102,7 +102,7 @@ var dreamcc={
 					 	}
 			 		}catch(e){
 			 			alert(e);
-			 			dreamcc.alert('提示',"请求出现异常,请联系管理员1",'error');
+			 			dreamcc.alert('提示',"请求出现异常,请联系管理员",'error');
 			 		}
 			 	},
 			 	complete:function(){
@@ -113,7 +113,7 @@ var dreamcc={
 	},
 	saveForm:function(form,callback){
 		if(form.form('validate')){
-			dreamcc.progress('Please waiting','Save ing...');
+			dreamcc.progress('请等待...','保存中...');
 			//ajax提交form
 			dreamcc.submitForm(form,function(data){
 				dreamcc.closeProgress();

@@ -13,6 +13,7 @@ import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dreamcc.gs.bean.BaseBean.DELETED;
@@ -32,19 +33,26 @@ import com.dreamcc.gs.util.MethodUtil;
 import com.dreamcc.gs.util.SessionUtils;
 import com.dreamcc.gs.util.TreeUtil;
 import com.dreamcc.gs.util.URLUtils;
-
+/**
+ * 
+ * @description baseController
+ * @author 刘畅
+ * @date 2017年9月7日
+ *
+ */
 @Controller
+@RequestMapping("/main")
 public class MainController extends BaseController {
 
 	private final static Logger log = Logger.getLogger(MainController.class);
 
-	@Autowired(required = false)
+	@Autowired//(required=false)
 	private MenuService<Menu> menuService;
 
-	@Autowired(required = false)
+	@Autowired(required=false)
 	private UserService<User> userService;
 
-	@Autowired(required = false)
+	@Autowired(required=false)
 	private MenuBtnService<MenuBtn> menuBtnService;
 
 	/**
@@ -59,7 +67,7 @@ public class MainController extends BaseController {
 		Map<String, Object> context = getRootMap();
 		return forword("login/loginOld", context);
 	}
-
+	@ResponseBody
 	@RequestMapping("/toLogin")
 	public void toLogin(String email, String pwd, HttpServletRequest request,
 			HttpServletResponse response) throws Exception{
@@ -169,7 +177,7 @@ public class MainController extends BaseController {
 		}
 		bean.setPwd(MethodUtil.MD5(newPwd));
 		userService.update(bean);
-		sendSuccessMessage(response, "Save success.");
+		sendSuccessMessage(response, "保存成功");
 	}
 
 	/**
@@ -179,7 +187,7 @@ public class MainController extends BaseController {
 	 * @param classifyId
 	 * @return
 	 */
-	@RequestMapping("/main")
+	@RequestMapping("/mains")
 	public ModelAndView main(SiteMainModel model, HttpServletRequest request) {
 		Map<String, Object> context = getRootMap();
 		User user = SessionUtils.getUser(request);

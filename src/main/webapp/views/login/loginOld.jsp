@@ -6,13 +6,13 @@
 		<title>用户登录</title>
 		<%@include file="/views/resource.jsp" %>
 		<%
-		pageContext.setAttribute("APP_PATH",request.getContextPath());
+		session.setAttribute("webUrl", request.getContextPath());
 		%>
-				<script type="text/javascript" src="${APP_PATH}/js/sys/login.js"></script>
-    	<link rel="stylesheet" type="text/css" href="${APP_PATH}/css/main/mainOld.css">
-    	<link rel="stylesheet" type="text/css" href="${APP_PATH}/css/login/loginOld.css">
+		<script type="text/javascript" src="${webUrl}/js/sys/login.js"></script>
+    	<link rel="stylesheet" type="text/css" href="${webUrl}/css/main/mainOld.css">
+    	<link rel="stylesheet" type="text/css" href="${webUrl}/css/login/loginOld.css">
 	</head>
-	<form id="loginForm" action="toLogin.do" method="post">
+	<form id="loginForm" action="${webUrl}/main/toLogin" method="post">
 	<body id="userlogin_body">
 		<div></div>
 		<div id=user_login>

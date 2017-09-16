@@ -4,9 +4,9 @@ var YDataGrid = function(config){
 		//Actions
 		var actionUrl =  config.action || {}
 		var Action = {
-			'save': actionUrl.save ||'save.do',
-			'getId': actionUrl.getId||'getId.do',
-			'remove': actionUrl.remove||'delete.do'
+			'save': actionUrl.save ||'save',
+			'getId': actionUrl.getId||'getId',
+			'remove': actionUrl.remove||'delete'
 		}
 		
 		//Grid DataList
@@ -69,7 +69,7 @@ var YDataGrid = function(config){
 			remove: function(callback){
 				var records = Utils.getCheckedRows();
 				if (Utils.checkSelect(records)){
-					$.messager.confirm('Confirm','Are you sure you want to delete record?',function(r){  
+					$.messager.confirm('确认','确认要删除该条记录吗?',function(r){  
 					    if (r){
 					    	var idKey = dataGrid.idField || 'id'; //主键名称
 					    	var  data = $("input[name='"+idKey+"']", Form.list ).fieldSerialize(); //序列化字段
@@ -102,7 +102,7 @@ var YDataGrid = function(config){
 			},
 			//关闭按钮事件
 			close : function (callback){
-				$.messager.confirm('Confirm','Are you sure you want close Window?',function(r){  
+				$.messager.confirm('确认','确认要关闭窗口吗?',function(r){  
 				    if (r){  
 				     	Win.edit.dialog('close');
 				     	//回调函数
@@ -167,20 +167,20 @@ var YDataGrid = function(config){
 		//按钮控制 btnType 用来控制按钮是否显示,后台根据授权控制是否显示
 		var bar_add ={	
 						id:'btnadd',
-						text:'Add',
+						text:'添加',
 						iconCls:'icon-add',
 						btnType:'add',
 						handler: Events.add
 					 };
 		var bar_edit = {
 							id:'btnedit',
-							text:'Edit',
+							text:'编辑',
 							iconCls:'icon-edit',
 							btnType:'edit',
 							handler: Events.edit
 						};
 		var bar_remove = { id:'btnremove',
-						text:'Remove',
+						text:'移除',
 						iconCls:'icon-remove',
 						btnType:'remove',
 						handler:Events.remove
@@ -257,7 +257,8 @@ var YDataGrid = function(config){
 		//初始化Grid按钮 按钮控制
 		var initTbar = function(){
 			var tbars = getToolbar();
-			var _url = urls['msUrl'] + '/getActionBtn.do';
+			var _url = urls['msUrl'] + '/main/getActionBtn';
+			//var_url = '${APP_PATH}/getActionBtn.do'
 			var data = {'url':window.location.href};
 			//查询页面授权的btnType
 			dreamcc.ajaxJson(_url,data,function(data){
@@ -305,10 +306,10 @@ var YDataGrid = function(config){
 					Win.edit.dialog({
 						buttons:[
 							{
-								text:'Save',
+								text:'保存',
 								handler:Events.save
 							},{
-								text:'Close',
+								text:'关闭',
 								handler:Events.close
 							}
 						]

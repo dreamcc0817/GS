@@ -1,8 +1,7 @@
 package com.dreamcc.gs.bean;
 
-
-
 public class Role extends BaseBean {
+
 	private Integer id;// id主键
 	private String roleName;// 角色名称
 	private java.sql.Timestamp createTime;// 创建时间

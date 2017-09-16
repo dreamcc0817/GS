@@ -25,15 +25,22 @@ import com.dreamcc.gs.serviceimpl.MenuBtnService;
 import com.dreamcc.gs.serviceimpl.MenuService;
 import com.dreamcc.gs.util.HtmlUtil;
 import com.dreamcc.gs.util.TreeUtil;
-
+/**
+ * 
+ * @description baseController
+ * @author 刘畅
+ * @date 2017年9月11日
+ *
+ */
 @Controller
+@RequestMapping("/menu")
 public class MenuController extends BaseController {
 	private final static Logger log= Logger.getLogger(MenuController.class);
 	
-	@Autowired(required=false) //自动注入，不需要生成set方法了，required=false表示没有实现类，也不会报错。
+	@Autowired(required=false)//自动注入，不需要生成set方法了，required=false表示没有实现类，也不会报错。
 	private MenuService<Menu> menuService; 
 	
-	@Autowired(required=false)
+	@Autowired
 	private MenuBtnService<MenuBtn> menuBtnService;
 	
 	/**
@@ -42,14 +49,14 @@ public class MenuController extends BaseController {
 	 * @param classifyId
 	 * @return
 	 */
-	@RequestMapping("/menu")
+	@RequestMapping("/menus")
 	public ModelAndView menu(SysMenuModel model,HttpServletRequest request) throws Exception{
 		Map<String,Object>  context = getRootMap();
 		model.setDeleted(DELETED.NO.key);
 		List<Menu> dataList = menuService.queryByList(model);
 		//设置页面数据
 		context.put("dataList", dataList);
-		return forword("sys/sysMenu",context); 
+		return forword("sys/menu",context); 
 	}
 	
 	/**
@@ -96,9 +103,6 @@ public class MenuController extends BaseController {
 	 */
 	@RequestMapping("/save")
 	public void save(Menu bean,HttpServletRequest request,HttpServletResponse response) throws Exception{
-		if(true){
-			new Exception(" Test Error");
-		}
 		//设置菜单按钮数据
 		List<MenuBtn> btns = getReqBtns(request);
 		bean.setBtns(btns);

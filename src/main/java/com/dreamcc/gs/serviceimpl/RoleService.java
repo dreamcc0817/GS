@@ -17,10 +17,10 @@ import com.dreamcc.gs.dao.RoleRelMapper;
 public class RoleService<T> extends BaseService<T> {
 	private final static Logger log = Logger.getLogger(RoleService.class);
 
-	@Autowired
+	@Autowired(required = false)
 	private RoleRelService<RoleRel> sysRoleRelService;
 
-	@Autowired
+	@Autowired(required = false)
 	private RoleMapper<T> mapper;
 
 	public RoleMapper<T> getMapper() {

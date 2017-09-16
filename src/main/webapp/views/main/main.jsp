@@ -6,12 +6,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%@include file="/views/resource.jsp"%>
-<%
-	pageContext.setAttribute("APP_PATH", request.getContextPath());
-	System.out.println(request.getContextPath().toString());
-%>
-    <link rel="stylesheet" type="text/css" href="${APP_PATH}/css/main/main.css">
-    <script type="text/javascript" src="http://127.0.0.1:8080/GS/js/sys/main.js"></script>
+    <link rel="stylesheet" type="text/css" href="${webUrl}/css/main/main.css">
+    <script type="text/javascript" src="${webUrl}/js/sys/main.js"></script>
 <title>智慧平台</title>
 </head>
 <body class="easyui-layout">
@@ -25,7 +21,7 @@
 				欢迎 <span class="orange">${user.nickName}</span>
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a class="modify-pwd-btn"
 					href="javascript:void(0);">修改密码</a> | <a class="logout-btn"
-					href="${msUrl}/logout.html">退出</a>
+					href="${msUrl}/main/logout.html">退出</a>
 			</div>
 		</div>
 	</div>
@@ -87,8 +83,8 @@
 		</form>
 		<div id="editPwdbtn" class="dialog-button">
 			<a href="javascript:void(0)" class="easyui-linkbutton"
-				id="btn-pwd-submit">Submit</a> <a href="javascript:void(0)"
-				class="easyui-linkbutton" id="btn-pwd-close">Close</a>
+				id="btn-pwd-submit">提交</a> <a href="javascript:void(0)"
+				class="easyui-linkbutton" id="btn-pwd-close">关闭</a>
 		</div>
 	</div>
 </body>

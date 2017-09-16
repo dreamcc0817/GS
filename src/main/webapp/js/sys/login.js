@@ -10,7 +10,7 @@ dreamcc.login = function(){
 						dreamcc.closeProgress();
 						dreamcc.login.loadVrifyCode();//刷新验证码
 						if(data.success){
-					 		window.location= "main.html";
+					 		window.location= "main/mains";
 				        }else{
 				       	   dreamcc.alert('提示',data.msg,'error');
 				        }
