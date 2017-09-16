@@ -56,7 +56,7 @@ public class MenuController extends BaseController {
 		List<Menu> dataList = menuService.queryByList(model);
 		//设置页面数据
 		context.put("dataList", dataList);
-		return forword("sys/menu",context); 
+		return forword("main/menu",context); 
 	}
 	
 	/**

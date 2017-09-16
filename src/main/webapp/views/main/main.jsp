@@ -8,6 +8,7 @@
 <%@include file="/views/resource.jsp"%>
     <link rel="stylesheet" type="text/css" href="${webUrl}/css/main/main.css">
     <script type="text/javascript" src="${webUrl}/js/sys/main.js"></script>
+	<script type="text/javascript" src="${webUrl}/js/common/YDataGrid.js"></script>
 <title>智慧平台</title>
 </head>
 <body class="easyui-layout">
