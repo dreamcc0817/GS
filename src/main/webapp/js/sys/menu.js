@@ -114,7 +114,7 @@ dreamcc.sysMenu = function(){
 						$("#edit_parentId").val(parentId);
 					}
 				},
-				edit:function(){
+			edit:function(){
 					_this.delAllLine(true);
 					_box.handler.edit(function(result){
 						$.each(result.data.btns,function(i,btn){
@@ -144,7 +144,7 @@ dreamcc.sysMenu = function(){
 					{id:'btndelete',text:'移除',btnType:'remove'},
 					{
 						id:'btnback',
-						text:'back',
+						text:'后退',
 						disabled: true,
 						iconCls:'icon-back',
 						handler:function(){

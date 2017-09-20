@@ -7,6 +7,6 @@ var urls= {
 var urls= {
 	'msUrl':'/GS',
 	'webUrl':'/GS',
-	'easyuiUrl':'/GS/easyui/jquery-easyui-1.3.2'
+	'easyuiUrl':'/GS/easyui'
 }
 //alert(urls['msUrl']);

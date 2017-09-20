@@ -16,7 +16,7 @@
  	 	<p class="ui-fields">
  	 	   <label class="ui-label">Email:</label> 
  	 	   <input name="email" class="easyui-box ui-text" style="width:100px;">
-           <label class="ui-label"> NickName:</label> 
+           <label class="ui-label">姓名:</label> 
            <input name="nickName" class="easyui-box ui-text" style="width:100px;">
         </p>
         <a href="#" id="btn-search" class="easyui-linkbutton" iconCls="icon-search">Search</a>
@@ -34,13 +34,13 @@
      	<form id="editForm" class="ui-form" method="post">  
      		 <input class="hidden" type="text" name="id">
      		  <div class="ui-edit">
-		     	   <div class="ftitle">Information</div>    
+		     	   <div class="ftitle">信息</div>    
 		           <div class="fitem">  
 		               <label>Email:</label>  
 		               <input class="easyui-validatebox" type="text" readonly="readonly" name="email" data-options="required:true,validType:'email'"></input>
 		           </div>  
 		            <div class="fitem">  
-		               <label>Roles:</label>  
+		               <label>角色:</label>  
 		               <select class="easyui-combobox" id="roleIds" name="roleIds"  
                     			data-options="width:135"></select>
 		           </div> 

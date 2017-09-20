@@ -22,7 +22,7 @@
 				欢迎 <span class="orange">${user.nickName}</span>
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a class="modify-pwd-btn"
 					href="javascript:void(0);">修改密码</a> | <a class="logout-btn"
-					href="${msUrl}/main/logout.html">退出</a>
+					href="${msUrl}/main/logout">退出</a>
 			</div>
 		</div>
 	</div>

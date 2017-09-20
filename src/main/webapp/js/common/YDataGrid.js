@@ -119,7 +119,7 @@ var YDataGrid = function(config){
 			getCheckedRows : function(){
 				return Grid.datagrid('getChecked');			
 			},
-			checkSelect : function(rows){//检查grid是否有勾选的行, 有返回 true,没有返回true
+			checkSelect : function(rows){//检查grid是否有勾选的行, 有返回 true,没有返回false
 				var records =  rows;
 				if(records && records.length > 0){
 					return true;
@@ -128,7 +128,7 @@ var YDataGrid = function(config){
 				return false;
 				
 			},
-			checkSelectOne : function(rows){//检查grid是否只勾选了一行,是返回 true,否返回true
+			checkSelectOne : function(rows){//检查grid是否只勾选了一行,是返回 true,否返回false
 				var records = rows;
 				if(!Utils.checkSelect(records)){
 					return false;

@@ -2,19 +2,18 @@ package com.dreamcc.gs.serviceimpl;
 
 import java.util.List;
 
-import org.jboss.logging.Logger;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dreamcc.gs.bean.Role;
 import com.dreamcc.gs.bean.RoleRel;
 import com.dreamcc.gs.bean.RoleRel.RelType;
-import com.dreamcc.gs.dao.BaseMapper;
 import com.dreamcc.gs.dao.RoleMapper;
-import com.dreamcc.gs.dao.RoleRelMapper;
 
 @Service("roleService")
 public class RoleService<T> extends BaseService<T> {
+	@SuppressWarnings("unused")
 	private final static Logger log = Logger.getLogger(RoleService.class);
 
 	@Autowired(required = false)

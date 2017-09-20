@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dreamcc.gs.dao.StoreHouseMapper">
+	<resultMap id="BaseResultMap" type="com.dreamcc.gs.bean.StoreHouse">
+		<id column="sh_id" jdbcType="VARCHAR" property="shId" />
+		<result column="sh_name" jdbcType="VARCHAR" property="shName" />
+		<result column="sh_responsible" jdbcType="VARCHAR" property="shResponsible" />
+		<result column="sh_phone" jdbcType="VARCHAR" property="shPhone" />
+		<result column="sh_address" jdbcType="VARCHAR" property="shAddress" />
+		<result column="sh_type" jdbcType="VARCHAR" property="shType" />
+		<result column="sh_remark" jdbcType="VARCHAR" property="shRemark" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		sh_id, sh_name, sh_responsible, sh_phone, sh_address, sh_type, sh_remark
+	</sql>
+
+</mapper>

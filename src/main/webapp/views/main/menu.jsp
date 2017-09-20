@@ -29,7 +29,7 @@
 	</div>
 	   
      <!-- Edit Win&From -->
-     <div id="edit-win" class="easyui-dialog" title="Edit Menu" data-options="closed:true,iconCls:'icon-save',modal:true"  style="width:500px;height:450px;">  
+     <div id="edit-win" class="easyui-dialog" title="菜单信息" data-options="closed:true,iconCls:'icon-save',modal:true"  style="width:500px;height:450px;">  
      	<form id="editForm" class="ui-form" method="post"> 
      	 <!-- 隐藏文本框 -->
      	 <input class="hidden" name="id">
@@ -59,9 +59,9 @@
 	            </div>
 	            <div data-options="region:'center'">  
 	              	<div id="toolbar">  
-				        <a href="javascript:void(0)" id='addLine_btn' class="easyui-linkbutton" iconCls="icon-add" plain="true" >Add</a>  
-				        <a href="javascript:void(0)" id='addDefLine_btn'class="easyui-linkbutton" iconCls="icon-add" plain="true" >AddDefault</a>
-				        <a href="javascript:void(0)" id='delAllLine_btn'class="easyui-linkbutton" iconCls="icon-remove" plain="true" >Delete All</a>  
+				        <a href="javascript:void(0)" id='addLine_btn' class="easyui-linkbutton" iconCls="icon-add" plain="true" >增加</a>  
+				        <a href="javascript:void(0)" id='addDefLine_btn'class="easyui-linkbutton" iconCls="icon-add" plain="true" >增加默认值</a>
+				        <a href="javascript:void(0)" id='delAllLine_btn'class="easyui-linkbutton" iconCls="icon-remove" plain="true" >全部删除</a>  
 				    </div>  
 				    <table id="btn-tb" style="width:100%">
 				    	<thead>

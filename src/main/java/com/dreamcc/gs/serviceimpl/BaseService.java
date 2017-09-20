@@ -39,7 +39,7 @@ public abstract class BaseService<T>{
 	
 	public List<T> queryByList(BaseModel model) throws Exception{
 		Integer rowCount = queryByCount(model);
-		//model.getPager().setRowCount(rowCount);
+		model.getPager().setRowCount(rowCount);
 		return getMapper().queryByList(model);
 	}
 

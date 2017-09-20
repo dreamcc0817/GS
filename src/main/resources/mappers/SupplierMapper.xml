@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dreamcc.gs.dao.SupplierMapper">
+	<resultMap id="BaseResultMap" type="com.dreamcc.gs.bean.Supplier">
+		<id column="sup_id" jdbcType="INTEGER" property="id" />
+		<result column="sup_name" jdbcType="VARCHAR" property="supName" />
+		<result column="sup_linkman" jdbcType="VARCHAR" property="supLinkman" />
+		<result column="sup_phone" jdbcType="VARCHAR" property="supPhone" />
+		<result column="sup_address" jdbcType="VARCHAR" property="supAddress" />
+		<result column="sup_type" jdbcType="VARCHAR" property="supType" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		sup_id, sup_name, sup_linkman, sup_phone, sup_address,  sup_pay,sup_type
+	</sql>
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null">
+				and sup_id = #{id}
+			</if>
+			<if test="supName != null">
+				and sup_name = #{supName}
+			</if>
+			<if test="supLinkman != null and supName != '' ">
+				and sup_linkman = #{supLinkman}
+			</if>
+			<if test="supPhone != null">
+				and sup_phone = #{supPhone}
+			</if>			
+			<if test="supAddress != null">
+				and sup_address = #{supAddress}
+			</if>		
+			<if test="supType != null">
+				and sup_type = #{supType}
+			</if>
+		</trim>
+	</sql>
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Object">
+		<selectKey resultType = "java.lang.Integer" order="AFTER" keyProperty="id">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into sale_supplier(sup_id, sup_name, sup_linkman, sup_phone, sup_address,sup_type) 
+		values(#{id},#{supName},#{supLinkman},#{supPhone},#{supAddress},#{supType})
+	</insert>
+	<!-- 修改记录,只修改不为空的字段 -->
+	<update id="updateBySelective">
+		update sale_supplier
+		<trim suffixOverrides=",">
+			<if test="id != null">
+				and sup_id = #{id}
+			</if>
+			<if test="supName != null">
+				and sup_name = #{supName}
+			</if>
+			<if test="supLinkman != null and supName != '' ">
+				and sup_linkman = #{supLinkman}
+			</if>
+			<if test="supPhone != null">
+				and sup_phone = #{supPhone}
+			</if>			
+			<if test="supAddress != null">
+				and sup_address = #{supAddress}
+			</if>		
+			<if test="supType != null">
+				and sup_type = #{supType}
+			</if>
+		</trim>
+	</update>
+	<!-- 删除 -->
+	<delete id="delete">
+		delete from sale_supplier where sup_id = #{id}
+	</delete>
+	<!-- 根据id查询 供应商-->
+	<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+		select <include refid="Base_Column_List" /> 
+		 from sale_supplier where sup_id = #{id}
+	</select>
+	<!-- 供应商 列表总数-->
+	<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+		select count(1) from sale_supplier 
+		<include refid="Example_Where_Clause"/>
+	</select>
+	<!-- 查询系统用户列表 -->
+	<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+		select 
+		<include refid="Base_Column_List"/>
+		from sale_supplier 
+		<include refid="Example_Where_Clause"/>
+		<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+	      ${pager.orderCondition}
+	    </if>
+	    <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+	       ${pager.mysqlQueryCondition}
+	    </if>
+	</select>
+	<!--  -->
+	<select id="getSupplierCountByName" resultType="java.lang.Integer"  parameterType="Object">
+		select count(1)
+		from sale_supplier where sup_name=#{supName}
+	</select>
+</mapper>
