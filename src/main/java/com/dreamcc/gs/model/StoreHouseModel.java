@@ -1,7 +1,7 @@
 package com.dreamcc.gs.model;
 
 public class StoreHouseModel extends BaseModel {
-	private String shId;
+	private String id;
 
 	private String shName;
 
@@ -15,12 +15,12 @@ public class StoreHouseModel extends BaseModel {
 
 	private String shRemark;
 
-	public String getShId() {
-		return shId;
+	public String getId() {
+		return id;
 	}
 
-	public void setShId(String shId) {
-		this.shId = shId == null ? null : shId.trim();
+	public void setId(String id) {
+		this.id = id == null ? null : id.trim();
 	}
 
 	public String getShName() {

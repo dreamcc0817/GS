@@ -3,7 +3,7 @@ package com.dreamcc.gs.model;
 import java.math.BigDecimal;
 
 public class GoodsModel extends BaseModel {
-    private String goodsId;
+    private String id;
 
     private String goodsName;
 
@@ -27,12 +27,12 @@ public class GoodsModel extends BaseModel {
 
     private BigDecimal goodsBuyPrice;
 
-    public String getGoodsId() {
-        return goodsId;
+    public String getId() {
+        return id;
     }
 
-    public void setGoodsId(String goodsId) {
-        this.goodsId = goodsId == null ? null : goodsId.trim();
+    public void setGoodsId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
     public String getGoodsName() {

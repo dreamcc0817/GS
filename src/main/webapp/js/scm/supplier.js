@@ -1,20 +1,5 @@
 $package('dreamcc.supplier');
 
-
-//$(function(){
-//	$('#data-list').datagrid({
-//		title:'供应商列表',
-//		url:'dataList',
-//		columns:[[
-//				{field:'supId',chekbox:true},
-//				{field:'supName',title:'供应商名称',width:120},
-//				{field:'supLinkman',title:'联系人姓名',width:120},
-//				{field:'supPhone',title:'联系人电话',width:120},
-//				{field:'supAddress',title:'供应商地址',width:120},
-//				{field:'supType',title:'级别',width:120,sortable:true}	 
-//		]]
-//	});
-//});
 dreamcc.supplier = function(){
 	var _box = null;
 	var _this = {

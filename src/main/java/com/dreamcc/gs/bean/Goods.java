@@ -3,7 +3,7 @@ package com.dreamcc.gs.bean;
 import java.math.BigDecimal;
 
 public class Goods extends BaseBean {
-	private String goodsId;
+	private Integer id;
 
 	private String goodsName;
 
@@ -27,12 +27,12 @@ public class Goods extends BaseBean {
 
 	private BigDecimal goodsBuyPrice;
 
-	public String getGoodsId() {
-		return goodsId;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setGoodsId(String goodsId) {
-		this.goodsId = goodsId == null ? null : goodsId.trim();
+	public void setId(Integer id) {
+		this.id = id ;
 	}
 
 	public String getGoodsName() {

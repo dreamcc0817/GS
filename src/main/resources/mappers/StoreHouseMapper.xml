@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dreamcc.gs.dao.StoreHouseMapper">
 	<resultMap id="BaseResultMap" type="com.dreamcc.gs.bean.StoreHouse">
-		<id column="sh_id" jdbcType="VARCHAR" property="shId" />
+		<id column="sh_id" jdbcType="VARCHAR" property="id" />
 		<result column="sh_name" jdbcType="VARCHAR" property="shName" />
 		<result column="sh_responsible" jdbcType="VARCHAR" property="shResponsible" />
 		<result column="sh_phone" jdbcType="VARCHAR" property="shPhone" />
@@ -13,5 +13,94 @@
 	<sql id="Base_Column_List">
 		sh_id, sh_name, sh_responsible, sh_phone, sh_address, sh_type, sh_remark
 	</sql>
-
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null">
+				and sh_id = #{id}
+			</if>
+			<if test="shName != null">
+				and sh_name like CONCAT('%',#{#{shName}},'%')
+			</if>
+			<if test="shResponsible != null">
+				and sh_responsible = #{shResponsible}
+			</if>
+			<if test="shPhone != null">
+				and sh_phone = #{shPhone}
+			</if>
+			<if test="shAddress != null">
+				and sh_address = #{shAddress}
+			</if>
+			<if test="shType != null">
+				and sh_type = #{shType}
+			</if>
+			<if test="shRemark != null">
+				and sh_remark = #{shRemark}
+			</if>
+		</trim>
+	</sql>
+	
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Object">
+		<selectKey resultType = "java.lang.Integer" order="AFTER" keyProperty="id">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into store_house(sh_id, sh_name, sh_responsible, sh_phone, sh_address, sh_type, sh_remark) 
+		values(#{id},#{shName},#{shResponsible},#{shPhone},#{shAddress},#{shType},#{shRemark})
+	</insert>
+	<!-- 修改记录,只修改不为空的字段 -->
+	<update id="updateBySelective">
+		update sale_supplier set
+		<trim suffixOverrides=",">
+			<if test="supName != null">
+				sup_name = #{supName},
+			</if>
+			<if test="supLinkman != null and supName != '' ">
+				sup_linkman = #{supLinkman},
+			</if>
+			<if test="supPhone != null">
+				sup_phone = #{supPhone},
+			</if>			
+			<if test="supAddress != null">
+				sup_address = #{supAddress},
+			</if>		
+			<if test="supType != null">
+				sup_type = #{supType},
+			</if>
+		</trim>
+		where sh_id = #{id}
+	</update>
+	<!-- 删除 -->
+	<delete id="delete">
+		delete from store_house where sh_id = #{id}
+	</delete>
+	<!-- 根据id查询 仓库-->
+	<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+		select <include refid="Base_Column_List" /> 
+		 from store_house where sh_id = #{id}
+	</select>
+	<!-- 供应商 列表总数-->
+	<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+		select count(1) from store_house 
+		<include refid="Example_Where_Clause"/>
+	</select>
+	<!-- 查询系统用户列表 -->
+	<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+		select 
+		<include refid="Base_Column_List"/>
+		from store_house 
+		<include refid="Example_Where_Clause"/>
+		<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+	      ${pager.orderCondition}
+	    </if>
+	    <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+	       ${pager.mysqlQueryCondition}
+	    </if>
+	</select>
+	<!--  -->
+	<select id="getSupplierCountByName" resultType="java.lang.Integer"  parameterType="Object">
+		select count(1)
+		from store_house where sh_name=#{shName}
+	</select>
 </mapper>

@@ -20,7 +20,7 @@
 				and sup_id = #{id}
 			</if>
 			<if test="supName != null">
-				and sup_name = #{supName}
+				and sup_name like CONCAT('%',#{supName},'%') 
 			</if>
 			<if test="supLinkman != null and supName != '' ">
 				and sup_linkman = #{supLinkman}
@@ -46,27 +46,25 @@
 	</insert>
 	<!-- 修改记录,只修改不为空的字段 -->
 	<update id="updateBySelective">
-		update sale_supplier
+		update sale_supplier set
 		<trim suffixOverrides=",">
-			<if test="id != null">
-				and sup_id = #{id}
-			</if>
 			<if test="supName != null">
-				and sup_name = #{supName}
+				sup_name = #{supName},
 			</if>
-			<if test="supLinkman != null and supName != '' ">
-				and sup_linkman = #{supLinkman}
+			<if test="supLinkman != null and supLinkman != '' ">
+				sup_linkman = #{supLinkman},
 			</if>
 			<if test="supPhone != null">
-				and sup_phone = #{supPhone}
+				sup_phone = #{supPhone},
 			</if>			
 			<if test="supAddress != null">
-				and sup_address = #{supAddress}
+				sup_address = #{supAddress},
 			</if>		
 			<if test="supType != null">
-				and sup_type = #{supType}
+				sup_type = #{supType},
 			</if>
 		</trim>
+		where sup_id = #{id}
 	</update>
 	<!-- 删除 -->
 	<delete id="delete">

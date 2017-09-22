@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dreamcc.gs.dao.GoodsMapper">
 	<resultMap id="BaseResultMap" type="com.dreamcc.gs.bean.Goods">
-		<id column="goods_Id" jdbcType="VARCHAR" property="goodsId" />
+		<id column="goods_Id" jdbcType="INTEGER" property="id" />
 		<result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
 		<result column="goods_unit" jdbcType="VARCHAR" property="goodsUnit" />
 		<result column="goods_type" jdbcType="VARCHAR" property="goodsType" />
@@ -20,5 +20,128 @@
 		goods_limit,
 		goods_commission, goods_producer, goods_remark, goods_sel_price, goods_buy_price
 	</sql>
-
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null">
+				and goods_Id = #{id}
+			</if>
+			<if test="id != null">
+				and goods_name = #{goodsName}
+			</if>
+			<if test="id != null">
+				and goods_unit = #{goodsUnit}
+			</if>
+			<if test="id != null">
+				and goods_type = #{goodsType}
+			</if>
+			<if test="id != null">
+				and goods_color = #{goodsColor}
+			</if>
+			<if test="id != null">
+				and goods_store = #{goodsStore}
+			</if>
+			<if test="id != null">
+				and goods_limit = #{goodsLimit}
+			</if>
+			<if test="id != null">
+				and goods_commission = #{goodsCommission}
+			</if>
+			<if test="id != null">
+				and goods_producer = #{goodsProducer}
+			</if>
+			<if test="id != null">
+				and goods_remark = #{goodsRemark}
+			</if>
+			<if test="id != null">
+				and goods_sel_price = #{goodsSelPrice}
+			</if>
+			<if test="id != null">
+				and goods_buy_price = #{goodsBuyPrice}
+			</if>
+		</trim>
+	</sql>
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Object">
+		insert into sale_goods(goods_Id, goods_name, goods_unit, goods_type, goods_color, goods_store,goods_limit,
+		goods_commission, goods_producer, goods_remark, goods_sel_price, goods_buy_price) 
+		values(#{id},#{goodsName},#{goodsUnit},#{goodsType}, #{goodsColor}, #{goodsStore}, #{goodsLimit}, #{goodsCommission},
+		#{goodsProducer},#{goodsRemark},#{goodsSelPrice},#{goodsBuyPrice})
+	</insert>
+	
+	<!-- 修改记录,只修改不为空的字段 -->
+	<update id="updateBySelective">
+		update sale_goods set
+		<trim suffixOverrides=",">
+			<if test="id != null">
+				goods_Id = #{id},
+			</if>
+			<if test="id != null">
+				goods_name = #{goodsName},
+			</if>
+			<if test="id != null">
+				goods_unit = #{goodsUnit},
+			</if>
+			<if test="id != null">
+				goods_type = #{goodsType},
+			</if>
+			<if test="id != null">
+				goods_color = #{goodsColor},
+			</if>
+			<if test="id != null">
+				goods_store = #{goodsStore},
+			</if>
+			<if test="id != null">
+				goods_limit = #{goodsLimit},
+			</if>
+			<if test="id != null">
+				goods_commission = #{goodsCommission},
+			</if>
+			<if test="id != null">
+				goods_producer = #{goodsProducer},
+			</if>
+			<if test="id != null">
+				goods_remark = #{goodsRemark},
+			</if>
+			<if test="id != null">
+				goods_sel_price = #{goodsSelPrice},
+			</if>
+			<if test="id != null">
+				goods_buy_price = #{goodsBuyPrice},
+			</if>
+		</trim>
+		where goods_Id = #{id}
+	</update>
+	<!-- 删除 -->
+	<delete id="delete">
+		delete from sale_goods where goods_Id = #{id}
+	</delete>
+	<!-- 根据id查询 商品-->
+	<select id="queryById" parameterType="Object" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> 
+		 from sale_goods where goods_Id = #{id}
+	</select>
+	<!-- 商品 列表总数-->
+	<select id="queryByCount" parameterType="Object" resultType="java.lang.Integer">
+		select count(1) from sale_goods 
+		<include refid="Example_Where_Clause" />
+	</select>
+	<!-- 查询系统用户列表 -->
+	<select id="queryByList" parameterType="Object" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from sale_goods 
+		<include refid="Example_Where_Clause" />
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+	      ${pager.orderCondition}
+	    </if>
+	    <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''">
+	       ${pager.mysqlQueryCondition}
+	    </if>
+	</select>
+	<!--  -->
+	<select id="getSupplierCountByName" parameterType="Object" resultType="java.lang.Integer">
+		select count(1)
+		from sale_goods where goods_name=#{goodsName}
+	</select>
 </mapper>

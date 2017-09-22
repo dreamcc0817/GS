@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dreamcc.gs.dao.ParamMapper">
+  <resultMap id="BaseResultMap" type="com.dreamcc.gs.bean.Param">
+    <id column="sys_param_id" jdbcType="INTEGER" property="sysParamId" />
+    <result column="sys_param_field" jdbcType="VARCHAR" property="sysParamField" />
+    <result column="sys_param_value" jdbcType="VARCHAR" property="sysParamValue" />
+    <result column="sys_param_text" jdbcType="VARCHAR" property="sysParamText" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    sys_param_id, sys_param_field, sys_param_value, sys_param_text
+  </sql>
+  
+  <select id="getParamByName" resultType="BaseResultMap" parameterType="string">
+  		select 
+  		<include refid="Base_Colume_List" />
+  		from sys_param p 
+  		where 1=1
+  		<if test="name != null and name !=''">
+  		and p.sys_param_field like concat('%',#{name},'%')
+  		or p.sys_param_text like concat('%',#{name},'%')
+  		</if>
+  		  		
+  </select>
+</mapper>

@@ -15,7 +15,7 @@
  	 <form id="searchForm">
  	 	<p class="ui-fields">
            <label class="ui-label">供应商:</label> 
-           <input name="name" class="easyui-box ui-text" style="width:100px;">
+           <input name="supName" class="easyui-box ui-text" style="width:100px;">
         </p>
         <a href="#" id="btn-search" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
       </form>  
